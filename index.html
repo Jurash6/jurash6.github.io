@@ -443,11 +443,11 @@
         <form id="login-form" class="space-y-4">
             <div>
                 <label class="block text-xs text-slate-400 mb-1 font-mono">節點管理者帳號</label>
-                <input type="text" id="login-username" value="jurash_admin" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
+                <input type="text" id="login-username" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
             </div>
             <div>
                 <label class="block text-xs text-slate-400 mb-1 font-mono">Private Key 驗證碼</label>
-                <input type="password" id="login-password" value="jurash123" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
+                <input type="password" id="login-password" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
             </div>
             <div id="login-error-msg" class="hidden text-xs text-red-400 font-mono"></div>
             <button type="submit" class="w-full py-2.5 bg-web3-cyan text-black font-mono text-xs font-bold rounded-lg transition hover:bg-web3-cyanGlow flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
@@ -786,6 +786,12 @@
             }
         }
 
+        // 全網頁資料容器 - 初始化為空陣列，完全由 Apps Script API 真實資料填入
+        const SHOWCASE_ITEMS = [];
+        const USER_SKILLS = [];
+        const USER_PROJECTS = [];
+        let ADMIN_HISTORY = [];
+
         // Fetch Cloud State on Load
         async function fetchCloudData() {
             if (!API_URL) return;
@@ -795,216 +801,50 @@
                 const data = await response.json();
                 
                 if (data) {
-                    if (data.showcaseItems && Array.isArray(data.showcaseItems) && data.showcaseItems.length > 0) {
+                    if (data.showcaseItems && Array.isArray(data.showcaseItems)) {
                         SHOWCASE_ITEMS.length = 0;
                         SHOWCASE_ITEMS.push(...data.showcaseItems);
-                        renderShowcase('all');
                     }
-                    if (data.history && Array.isArray(data.history) && data.history.length > 0) {
+                    if (data.history && Array.isArray(data.history)) {
                         ADMIN_HISTORY.length = 0;
                         ADMIN_HISTORY.push(...data.history);
-                        renderAdminHistoryTable();
                     }
-                    if (data.skills && Array.isArray(data.skills) && data.skills.length > 0) {
-                        data.skills.forEach(remoteSkill => {
-                            const localSkill = USER_SKILLS.find(s => s.id === remoteSkill.id);
-                            if (localSkill) {
-                                Object.assign(localSkill, remoteSkill);
-                            }
-                        });
-                        renderDashboard();
-                        renderSkills('all');
+                    if (data.skills && Array.isArray(data.skills)) {
+                        USER_SKILLS.length = 0;
+                        USER_SKILLS.push(...data.skills);
+                        
+                        // 動態更新 JSON-LD Schema
+                        const schemaElem = document.getElementById('agent-schema');
+                        if (schemaElem) {
+                            try {
+                                const schemaObj = JSON.parse(schemaElem.textContent);
+                                schemaObj.knowsAbout = data.skills.map(s => ({
+                                    "@type": "DefinedTerm",
+                                    "name": s.name,
+                                    "termCode": s.level || "Lv.1",
+                                    "description": `${s.currentXP || 0} / ${s.maxXP || 1000} min - ${s.description || ''}`
+                                }));
+                                schemaElem.textContent = JSON.stringify(schemaObj, null, 2);
+                            } catch(e) {}
+                        }
                     }
-                    showAdminToast("已成功與 Google Apps Script API 完成數據同步！");
+                    if (data.projects && Array.isArray(data.projects)) {
+                        USER_PROJECTS.length = 0;
+                        USER_PROJECTS.push(...data.projects);
+                    }
+
+                    renderDashboard();
+                    renderShowcase('all');
+                    renderSkills('all');
+                    renderTimeline();
+                    renderAdminHistoryTable();
+                    populateAdminSkillSelect();
+                    showAdminToast("已成功與 Google Apps Script API 完成資料同步！");
                 }
             } catch (err) {
-                console.log('Local state initialized (Cloud API ready):', err);
+                console.log('API 連線或解析異常:', err);
             }
         }
-
-        // Mock Data for Multi-Format Portfolio Showcase Items
-        const SHOWCASE_ITEMS = [
-            {
-                id: 'sc-1',
-                title: 'AegisZK Privacy Protocol & Circuit Suite',
-                format: 'dapp', // dapp, code, media, doc
-                formatLabel: 'Live DApp',
-                image: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop',
-                demoUrl: 'https://aegis-zk.eth.limo',
-                codeUrl: 'https://github.com/jurash/aegis-zk-circuits',
-                description: '兼具零知識身分驗證與資產代幣化隱私轉帳系統。結合 Circom 電路與 SnarkJS 前端證明生成，達成單局 1.2 秒無監護隱私轉帳。',
-                tags: ['Circom', 'SnarkJS', 'Solidity', 'ERC-4337', 'Tailwind'],
-                date: '2026 Q1'
-            },
-            {
-                id: 'sc-2',
-                title: 'ERC-4337 Account Abstraction Paymaster Engine',
-                format: 'code',
-                formatLabel: 'Smart Contract / Repo',
-                image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=800&auto=format&fit=crop',
-                demoUrl: '',
-                codeUrl: 'https://github.com/jurash/aa-paymaster-engine',
-                description: '模組化帳戶抽象 Paymaster 與 Bundler 合約模組，支援自訂 ERC-20 支付 Gas Fee 與社交復原金鑰驗證管道。',
-                tags: ['Solidity', 'Foundry', 'TypeScript', 'Ethers.js'],
-                date: '2025 Q4'
-            },
-            {
-                id: 'sc-3',
-                title: 'DeNet P2P Multi-Agent Network Architecture Demo',
-                format: 'media',
-                formatLabel: 'Video / Pitch',
-                image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop',
-                demoUrl: 'https://youtube.com',
-                codeUrl: 'https://github.com/jurash/p2p-agent-net',
-                description: 'libp2p 去中心化節點間多 AI Agent 鏈下共識協定展示影音，包含 Gossipsub 廣播測試與 50 節點壓力測試成果。',
-                tags: ['libp2p', 'Go', 'Gossipsub', 'Multi-Agent'],
-                date: '2025 Q3'
-            }
-        ];
-
-        // Mock Data for Skills
-        const USER_SKILLS = [
-            {
-                id: 'solidity-sc',
-                name: 'Solidity & Smart Contracts',
-                category: 'smart-contracts',
-                level: 'Lv.4',
-                currentXP: 14200,
-                maxXP: 15000,
-                icon: 'fa-solid fa-file-code',
-                accentColor: 'cyan',
-                description: 'DeFi 邏輯重構、ERC/EIP 標準鏈上寫入、Gas Fee 優化與 Reentrancy 防禦機制。'
-            },
-            {
-                id: 'zk-proofs',
-                name: 'ZK-Proofs & Cryptography',
-                category: 'cryptography',
-                level: 'Lv.4',
-                currentXP: 12800,
-                maxXP: 15000,
-                icon: 'fa-solid fa-user-shield',
-                accentColor: 'purple',
-                description: 'Circom / SnarkJS 零知識證明電路構建、隱私身分認證與鏈上 Zero-Knowledge 驗證。'
-            },
-            {
-                id: 'p2p-nodes',
-                name: 'P2P Network & Distributed Nodes',
-                category: 'infrastructure',
-                level: 'Lv.3',
-                currentXP: 8900,
-                maxXP: 10000,
-                icon: 'fa-solid fa-circle-nodes',
-                accentColor: 'emerald',
-                description: 'libp2p 去中心化節點對等通訊、Gossipsub 共識訊息廣播與分散式對等傳輸。'
-            },
-            {
-                id: 'rust-go-nodes',
-                name: 'Rust / Go High-Perf Nodes',
-                category: 'infrastructure',
-                level: 'Lv.3',
-                currentXP: 6500,
-                maxXP: 10000,
-                icon: 'fa-solid fa-gear',
-                accentColor: 'cyan',
-                description: '高效能鏈上 RPC 節點中繼站搭建、Rust 驗證節點與多執行緒數據處理管道。'
-            },
-            {
-                id: 'agent-protocol',
-                name: 'On-Chain Agent Protocols',
-                category: 'ai-agent',
-                level: 'Lv.3',
-                currentXP: 5100,
-                maxXP: 8000,
-                icon: 'fa-solid fa-robot',
-                accentColor: 'purple',
-                description: '去中心化 Autonomous Agent 簽署協定、鏈上權限代理與 Schema.org 標準封裝。'
-            },
-            {
-                id: 'ipfs-arweave',
-                name: 'IPFS / Decentralized Storage',
-                category: 'storage',
-                level: 'Lv.2',
-                currentXP: 3800,
-                maxXP: 5000,
-                icon: 'fa-solid fa-database',
-                accentColor: 'emerald',
-                description: '去中心化元資料 pinning 節點維運、Arweave 永久記憶體存取與 P2P 內容定址。'
-            }
-        ];
-
-        // Timeline Projects Mock Data
-        const USER_PROJECTS = [
-            {
-                id: 'p-1',
-                title: 'ZK-Identity Zero-Knowledge Privacy Protocol',
-                date: '2026 Q1',
-                tag: 'ZK & Cryptography',
-                description: '基於 Circom 與 SnarkJS 研發去中心化身份 (DID) 零知識證明驗證系統，達成無隱私洩漏身分簽署。'
-            },
-            {
-                id: 'p-2',
-                title: 'ERC-4337 Account Abstraction Wallet Engine',
-                date: '2025 Q4',
-                tag: 'Smart Contracts',
-                description: '開發帳戶抽象 Bundler 與 Paymaster 合約，實現免 Gas 體驗與多重金鑰社交復原邏輯。'
-            },
-            {
-                id: 'p-3',
-                title: 'DeNet P2P Multi-Agent Network Engine',
-                date: '2025 Q3',
-                tag: 'P2P & AI Agent',
-                description: '結合 libp2p 與 Web3 Agent Schema 通訊協定，打造去中心化 AI Agent 協同決策廣播節點。'
-            }
-        ];
-
-        // Admin History Mock Data (Recent 5 Entries)
-        let ADMIN_HISTORY = [
-            {
-                id: 'h-1',
-                date: '2026-03-15',
-                skillId: 'zk-proofs',
-                skillName: 'ZK-Proofs & Cryptography',
-                summary: '優化 SnarkJS 驗證電路結構，降低鏈上 Gas 消耗 35%',
-                xpGained: 180,
-                status: 'Published'
-            },
-            {
-                id: 'h-2',
-                date: '2026-03-12',
-                skillId: 'solidity-sc',
-                skillName: 'Solidity & Smart Contracts',
-                summary: '完成 ERC-4337 帳戶抽象 (Account Abstraction) 部署與測試',
-                xpGained: 120,
-                status: 'Published'
-            },
-            {
-                id: 'h-3',
-                date: '2026-03-08',
-                skillId: 'agent-protocol',
-                skillName: 'On-Chain Agent Protocols',
-                summary: '測試去中心化 Multi-Agent 鏈上權限簽署協定',
-                xpGained: 90,
-                status: 'Published'
-            },
-            {
-                id: 'h-4',
-                date: '2026-03-02',
-                skillId: 'rust-go-nodes',
-                skillName: 'Rust / Go High-Perf Nodes',
-                summary: '重構 Rust 驗證節點 RPC 併發中繼連線與壓測',
-                xpGained: 60,
-                status: 'Draft'
-            },
-            {
-                id: 'h-5',
-                date: '2026-02-25',
-                skillId: 'p2p-nodes',
-                skillName: 'P2P Network & Distributed Nodes',
-                summary: '佈署 libp2p P2P 中繼廣播節點並進行健康診斷',
-                xpGained: 150,
-                status: 'Published'
-            }
-        ];
 
         // DOM Elements Selection
         const btnAiParse = document.getElementById('btn-ai-parse');
@@ -1036,6 +876,15 @@
                 ? SHOWCASE_ITEMS 
                 : SHOWCASE_ITEMS.filter(item => item.format === filterFormat);
 
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
+                        <i class="fa-solid fa-folder-open text-3xl mb-2 block text-slate-600"></i>
+                        目前尚無作品資料，請連結 Google Apps Script API 載入或至控制台發布作品。
+                    </div>`;
+                return;
+            }
+
             items.forEach(item => {
                 const card = document.createElement('article');
                 card.className = "glow-card rounded-xl overflow-hidden transition-all duration-300 flex flex-col justify-between group border border-web3-border hover:border-web3-amber/60";
@@ -1058,10 +907,10 @@
                     <div>
                         <!-- Cover Image Preview -->
                         <div class="relative h-44 overflow-hidden bg-slate-950 border-b border-web3-border">
-                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100">
+                            <img src="${item.image || 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop'}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100">
                             <div class="absolute top-3 right-3">
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono border backdrop-blur-md font-semibold flex items-center gap-1 ${formatBadgeClass}">
-                                    <i class="${formatIcon}"></i> ${item.formatLabel}
+                                    <i class="${formatIcon}"></i> ${item.formatLabel || 'Showcase'}
                                 </span>
                             </div>
                         </div>
@@ -1069,7 +918,7 @@
                         <!-- Content Body -->
                         <div class="p-5 space-y-3">
                             <div class="flex items-center justify-between font-mono text-[11px] text-web3-muted">
-                                <span>${item.date}</span>
+                                <span>${item.date || 'API DATA'}</span>
                                 <span class="text-web3-amber font-bold flex items-center gap-1"><i class="fa-solid fa-shield"></i> VERIFIED</span>
                             </div>
                             
@@ -1078,7 +927,7 @@
                             
                             <!-- Tags -->
                             <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[10px]">
-                                ${item.tags.map(t => `<span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-web3-border">#${t}</span>`).join('')}
+                                ${(item.tags || []).map(t => `<span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-web3-border">#${t}</span>`).join('')}
                             </div>
                         </div>
                     </div>
@@ -1247,7 +1096,7 @@
 
         // 渲染 Dashboard 統計數據
         function renderDashboard() {
-            const totalXP = USER_SKILLS.reduce((acc, curr) => acc + curr.currentXP, 0);
+            const totalXP = USER_SKILLS.reduce((acc, curr) => acc + (curr.currentXP || 0), 0);
             const totalXPElem = document.getElementById('dash-total-xp');
             const skillCountElem = document.getElementById('dash-skill-count');
 
@@ -1269,8 +1118,19 @@
                 ? USER_SKILLS 
                 : USER_SKILLS.filter(s => s.category === filterCategory);
 
+            if (filteredSkills.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
+                        <i class="fa-solid fa-microchip text-3xl mb-2 block text-slate-600"></i>
+                        目前尚無技能節點資料，請由 Apps Script API 讀取同步。
+                    </div>`;
+                return;
+            }
+
             filteredSkills.forEach(skill => {
-                const percentage = Math.min(100, Math.round((skill.currentXP / skill.maxXP) * 100));
+                const maxXP = skill.maxXP || 1000;
+                const currentXP = skill.currentXP || 0;
+                const percentage = Math.min(100, Math.round((currentXP / maxXP) * 100));
                 
                 let iconColorClass = "text-web3-cyan";
                 let barColorClass = "bg-web3-cyan";
@@ -1287,33 +1147,33 @@
                 card.className = "glow-card rounded-xl p-5 transition-all duration-200 flex flex-col justify-between space-y-4 group";
                 card.setAttribute('data-skill-id', skill.id);
                 card.setAttribute('data-agent-skill', skill.name);
-                card.setAttribute('data-level', skill.level);
+                card.setAttribute('data-level', skill.level || 'Lv.1');
 
                 card.innerHTML = `
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-3">
                                 <div class="w-10 h-10 rounded-lg bg-slate-950 border border-web3-border flex items-center justify-center ${iconColorClass} text-lg">
-                                    <i class="${skill.icon}"></i>
+                                    <i class="${skill.icon || 'fa-solid fa-code'}"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-sm group-hover:text-web3-cyan transition">${skill.name}</h3>
-                                    <span class="text-[10px] font-mono text-web3-muted capitalize">${skill.category.replace('-', ' ')}</span>
+                                    <span class="text-[10px] font-mono text-web3-muted capitalize">${(skill.category || 'Domain').replace('-', ' ')}</span>
                                 </div>
                             </div>
                             <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-950 border border-web3-border ${iconColorClass}">
-                                ${skill.level}
+                                ${skill.level || 'Lv.1'}
                             </span>
                         </div>
 
-                        <p class="text-xs text-slate-300 leading-relaxed font-sans">${skill.description}</p>
+                        <p class="text-xs text-slate-300 leading-relaxed font-sans">${skill.description || ''}</p>
                     </div>
 
                     <!-- Progress Section -->
                     <div class="space-y-1.5 pt-2 border-t border-web3-border/60">
                         <div class="flex justify-between text-[10px] font-mono">
                             <span class="text-web3-muted">PROOF-OF-TIME (min)</span>
-                            <span class="text-slate-300">${skill.currentXP.toLocaleString()} / ${skill.maxXP.toLocaleString()} min (${percentage}%)</span>
+                            <span class="text-slate-300">${currentXP.toLocaleString()} / ${maxXP.toLocaleString()} min (${percentage}%)</span>
                         </div>
                         <div class="w-full h-2 bg-slate-950 rounded-full p-0.5 border border-web3-border overflow-hidden">
                             <div class="h-full ${barColorClass} rounded-full transition-all duration-500" style="width: ${percentage}%;"></div>
@@ -1358,6 +1218,15 @@
             if (!container) return;
             container.innerHTML = '';
 
+            if (USER_PROJECTS.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
+                        <i class="fa-solid fa-timeline text-2xl mb-2 block text-slate-600"></i>
+                        目前尚無里程碑紀錄
+                    </div>`;
+                return;
+            }
+
             USER_PROJECTS.forEach(proj => {
                 const item = document.createElement('article');
                 item.className = 'relative group';
@@ -1366,7 +1235,7 @@
                     <div class="glow-card rounded-xl p-5 space-y-2">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <span class="text-xs font-mono text-web3-cyan font-bold">${proj.date}</span>
-                            <span class="text-[10px] font-mono px-2 py-0.5 bg-web3-purple/20 text-web3-purple border border-web3-purple/30 rounded">${proj.tag}</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 bg-web3-purple/20 text-web3-purple border border-web3-purple/30 rounded">${proj.tag || 'Project'}</span>
                         </div>
                         <h3 class="text-base font-bold text-white group-hover:text-web3-cyan transition">${proj.title}</h3>
                         <p class="text-xs text-slate-300 leading-relaxed font-sans">${proj.description}</p>
@@ -1609,6 +1478,11 @@ ${calculatedMinutes > 0 ? `Calculated duration: ${calculatedMinutes} minutes.` :
             if (!adminHistoryTbody) return;
             adminHistoryTbody.innerHTML = '';
 
+            if (ADMIN_HISTORY.length === 0) {
+                adminHistoryTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-web3-muted font-mono text-xs">尚無簽署異動紀錄（同步自 Apps Script API）</td></tr>`;
+                return;
+            }
+
             ADMIN_HISTORY.forEach(item => {
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-slate-900/60 transition';
@@ -1679,85 +1553,43 @@ ${calculatedMinutes > 0 ? `Calculated duration: ${calculatedMinutes} minutes.` :
             btnCloseLoginModal.addEventListener('click', () => adminLoginModal?.close());
         }
 
+        // 試算表資料拉取相容映射
+        const fetchSheetData = typeof fetchCloudData === 'function' ? fetchCloudData : () => {};
+
         if (loginForm) {
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
-                const usernameInput = document.getElementById('login-username');
-                const passwordInput = document.getElementById('login-password');
-                const submitBtn = loginForm.querySelector('button[type="submit"]');
-
-                const username = usernameInput?.value.trim() || '';
-                const password = passwordInput?.value.trim() || '';
-
-                if (submitBtn) {
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 向鏈上後端驗證中...';
-                }
+                const user = document.getElementById('login-username')?.value.trim();
+                const pwd = document.getElementById('login-password')?.value;
 
                 try {
-                    // 發送真實 POST 驗證請求至後端 API_URL
                     const response = await fetch(API_URL, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: 'login',
-                            payload: { username, password },
-                            timestamp: new Date().toISOString()
+                            username: user,
+                            password: pwd
                         })
                     });
+                    const res = await response.json();
 
-                    const result = await response.json();
-
-                    if (result && (result.success || result.status === 'ok')) {
+                    if (res.status === 'success') {
                         isLoggedIn = true;
                         adminLoginModal?.close();
                         populateAdminSkillSelect();
-                        renderAdminHistoryTable();
                         setDefaultAdminTimes();
+                        fetchSheetData();
                         adminPanelModal?.showModal();
                         if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
-                        showAdminToast("後端 Private Key 驗證成功，開啓節點控制台！");
-                    } else {
-                        // 若後端未回應 success 或回傳失敗，比對預設備援身分
-                        if (username === 'jurash_admin' && password === 'jurash123') {
-                            isLoggedIn = true;
-                            adminLoginModal?.close();
-                            populateAdminSkillSelect();
-                            renderAdminHistoryTable();
-                            setDefaultAdminTimes();
-                            adminPanelModal?.showModal();
-                            if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
-                            showAdminToast("身分驗證成功 (離線金鑰比對)！");
-                        } else {
-                            if (loginErrorMsg) {
-                                loginErrorMsg.textContent = result?.message || "驗證失敗：帳號或 Private Key 無效";
-                                loginErrorMsg.classList.remove('hidden');
-                            }
-                        }
-                    }
-                } catch (err) {
-                    console.warn("後端連線驗證失敗，切換至本地密鑰比對:", err);
-                    if (username === 'jurash_admin' && password === 'jurash123') {
-                        isLoggedIn = true;
-                        adminLoginModal?.close();
-                        populateAdminSkillSelect();
-                        renderAdminHistoryTable();
-                        setDefaultAdminTimes();
-                        adminPanelModal?.showModal();
-                        if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
-                        showAdminToast("身分驗證成功 (相容模式)！");
+                        showAdminToast("身分驗證成功，已開啟控制台");
                     } else {
                         if (loginErrorMsg) {
-                            loginErrorMsg.textContent = "無法連線至驗證伺服器，請檢查網路設定";
+                            loginErrorMsg.textContent = res.message || "驗證失敗，帳號或密碼錯誤";
                             loginErrorMsg.classList.remove('hidden');
                         }
                     }
-                } finally {
-                    if (submitBtn) {
-                        submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<i class="fa-solid fa-key"></i> 驗證身分並開啓控制台';
-                    }
+                } catch (err) {
+                    console.error(err);
                 }
             });
         }
