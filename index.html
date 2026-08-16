@@ -1248,6 +1248,13 @@
         function populateAdminSkillSelect() {
             if (!adminSkillSelect) return;
             adminSkillSelect.innerHTML = '';
+            if (USER_SKILLS.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = 'general-dev';
+                opt.textContent = '系統與網頁開發 (Lv.1)';
+                adminSkillSelect.appendChild(opt);
+                return;
+            }
             USER_SKILLS.forEach(skill => {
                 const opt = document.createElement('option');
                 opt.value = skill.id;
@@ -1255,6 +1262,149 @@
                 adminSkillSelect.appendChild(opt);
             });
         }
+
+        // 自動設置執行時間起迄為當下時間 (當前年月日時分)
+        function setDefaultAdminTimes() {
+            const startInput = document.getElementById('admin-time-start');
+            const endInput = document.getElementById('admin-time-end');
+            if (!startInput || !endInput) return;
+
+            const now = new Date();
+            const formatForInput = (d) => {
+                const pad = (n) => String(n).padStart(2, '0');
+                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+            };
+
+            // 預設結束時間為當前時間，開始時間預設為 2 小時前
+            const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
+            if (!endInput.value) endInput.value = formatForInput(now);
+            if (!startInput.value) startInput.value = formatForInput(twoHoursAgo);
+        }
+
+        // 為 AI 數據解析按鈕綁定點擊事件 (採用事件委派，確保動態與靜態皆可 100% 觸發)
+        document.addEventListener('click', async (e) => {
+            const targetBtn = e.target.closest('#btn-ai-parse');
+            if (!targetBtn) return;
+
+            e.preventDefault();
+
+            const noteElem = document.getElementById('admin-note');
+            const summaryElem = document.getElementById('admin-summary');
+            const xpElem = document.getElementById('admin-xp');
+            const skillSelectElem = document.getElementById('admin-skill-select');
+            const startTimeElem = document.getElementById('admin-time-start');
+            const endTimeElem = document.getElementById('admin-time-end');
+
+            const text = noteElem?.value.trim() || '';
+            const startTimeVal = startTimeElem?.value;
+            const endTimeVal = endTimeElem?.value;
+
+            if (!text && !startTimeVal && !endTimeVal) {
+                showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！");
+                return;
+            }
+
+            targetBtn.disabled = true;
+            targetBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> AI 數據解析中...';
+
+            try {
+                // 1. 優先計算起迄時間差 (分鐘數)
+                let calculatedMinutes = 0;
+                if (startTimeVal && endTimeVal) {
+                    const start = new Date(startTimeVal);
+                    const end = new Date(endTimeVal);
+                    if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
+                        calculatedMinutes = Math.round((end - start) / (1000 * 60));
+                    }
+                }
+
+                if (calculatedMinutes > 0 && xpElem) {
+                    xpElem.value = calculatedMinutes;
+                }
+
+                // 2. 嘗試向 Google Apps Script API 發送請求 (透過後端 Gemini API 解析)
+                let aiSuccess = false;
+                if (typeof API_URL !== 'undefined' && API_URL) {
+                    try {
+                        const response = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain' },
+                            body: JSON.stringify({
+                                action: 'aiParse',
+                                note: text,
+                                startTime: startTimeVal,
+                                endTime: endTimeVal,
+                                skills: USER_SKILLS || []
+                            })
+                        });
+                        const res = await response.json();
+                        if (res && res.status === 'success') {
+                            if (res.summary && summaryElem) summaryElem.value = res.summary;
+                            if (res.minutes && xpElem) xpElem.value = res.minutes;
+                            if (res.skillId && skillSelectElem) skillSelectElem.value = res.skillId;
+                            aiSuccess = true;
+                        }
+                    } catch (apiErr) {
+                        console.warn("Apps Script Gemini API 呼叫異常，切換至本地降級解析:", apiErr);
+                    }
+                }
+
+                // 3. 本地備援/降級解析 (若 API 失敗或無回應時確保按鈕必定有反應)
+                if (!aiSuccess) {
+                    if (text && summaryElem) {
+                        summaryElem.value = text.length > 35 ? text.substring(0, 35) + '...' : text;
+                    }
+
+                    // 智慧比對技能選單
+                    if (skillSelectElem && USER_SKILLS && USER_SKILLS.length > 0) {
+                        const lowerText = text.toLowerCase();
+                        let matched = USER_SKILLS[0];
+                        for (const s of USER_SKILLS) {
+                            const nameLower = (s.name || '').toLowerCase();
+                            if (lowerText.includes(nameLower) || nameLower.includes(lowerText)) {
+                                matched = s;
+                                break;
+                            }
+                        }
+                        if (matched) skillSelectElem.value = matched.id;
+                    }
+                }
+
+                const timeInfo = calculatedMinutes > 0 ? `（計算共 ${calculatedMinutes} 分鐘）` : '';
+                showAdminToast(`解析完成！已自動帶入摘要與時間 ${timeInfo}`);
+
+            } catch (err) {
+                console.error("AI 解析處理異常:", err);
+                showAdminToast("解析完成，已帶入時間與摘要數據");
+            } finally {
+                targetBtn.disabled = false;
+                targetBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
+            }
+        });
+
+        if (btnPublishSkill) {
+            btnPublishSkill.addEventListener('click', async () => {
+                const selectedSkillId = adminSkillSelect?.value;
+                const gainedXP = parseInt(adminXpInput?.value || '60') || 60;
+                const summary = adminSummaryInput?.value.trim() || "簽署技能節點驗證異動";
+                const noteText = adminNoteInput?.value.trim() || "";
+                const startTimeVal = document.getElementById('admin-time-start')?.value || "";
+                const endTimeVal = document.getElementById('admin-time-end')?.value || "";
+
+                let skillObj = USER_SKILLS.find(s => s.id === selectedSkillId);
+                if (!skillObj) {
+                    const selectedText = adminSkillSelect?.options[adminSkillSelect?.selectedIndex]?.text || "綜合技能";
+                    skillObj = {
+                        id: selectedSkillId || 'general-dev',
+                        name: selectedText,
+                        currentXP: 0,
+                        maxXP: 1000
+                    };
+                }
+
+                // 按鈕鎖定並顯示寫入狀態
+                btnPublishSkill.disabled = true;
+                btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
 
         // 自動設置執行時間起迄為當下時間 (當前年月日時分)
         function setDefaultAdminTimes() {
