@@ -555,6 +555,8 @@
         let SHOWCASE_ITEMS = [];
         let ADMIN_HISTORY = [];
         let isLoggedIn = false;
+        let loggedUsername = "";
+        let loggedPassword = "";
 
         function showAdminToast(message, isError = false) {
             const toast = document.getElementById('admin-toast');
@@ -598,7 +600,7 @@
                     populateAdminSkillSelect();
                 }
             } catch (err) {
-                console.warn("無法連接至 Apps Script API 讀取雲端資料，啟動佔位模式:", err);
+                console.warn("無法連接至 Apps Script API 讀取雲端資料:", err);
                 renderDashboard();
                 renderSkills('all');
                 renderShowcase('all');
@@ -884,7 +886,7 @@
                     try {
                         const response = await fetch(API_URL, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'text/plain' },
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                             body: JSON.stringify({
                                 action: 'login',
                                 username: user,
@@ -895,6 +897,8 @@
 
                         if (res.status === 'success') {
                             isLoggedIn = true;
+                            loggedUsername = user;
+                            loggedPassword = pwd;
                             adminLoginModal?.close();
                             populateAdminSkillSelect();
                             setDefaultAdminTimes();
@@ -1008,9 +1012,125 @@
                 adminTabNotes?.classList.add('hidden');
             });
 
-            // Publish Skill Logic
-            const btnPublishSkill = document.getElementById('btn-publish-skill');
-            btnPublishSkill?.addEventListener('click', async () => {
+            // Showcase Filter buttons
+            document.querySelectorAll('.showcase-filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const type = e.target.getAttribute('data-type');
+                    document.querySelectorAll('.showcase-filter-btn').forEach(b => {
+                        b.className = "showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white";
+                    });
+                    e.target.className = "showcase-filter-btn px-3 py-1 rounded-md bg-cyber-gold text-black font-semibold";
+                    renderShowcase(type);
+                });
+            });
+
+        });
+
+        // Global Event Delegation for Dynamic Buttons
+        document.addEventListener('click', async (e) => {
+            // 1. AI Parse Button Handler
+            const targetBtn = e.target.closest('#btn-ai-parse');
+            if (targetBtn) {
+                e.preventDefault();
+
+                const noteElem = document.getElementById('admin-note');
+                const summaryElem = document.getElementById('admin-summary');
+                const xpElem = document.getElementById('admin-xp');
+                const skillSelectElem = document.getElementById('admin-skill-select');
+                const startTimeElem = document.getElementById('admin-time-start');
+                const endTimeElem = document.getElementById('admin-time-end');
+
+                const text = noteElem?.value.trim() || '';
+                const startTimeVal = startTimeElem?.value;
+                const endTimeVal = endTimeElem?.value;
+
+                if (!text && !startTimeVal && !endTimeVal) {
+                    showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！", true);
+                    return;
+                }
+
+                targetBtn.disabled = true;
+                targetBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> AI 數據解析中...';
+
+                try {
+                    let calculatedMinutes = 0;
+                    if (startTimeVal && endTimeVal) {
+                        const start = new Date(startTimeVal);
+                        const end = new Date(endTimeVal);
+                        if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
+                            calculatedMinutes = Math.round((end - start) / (1000 * 60));
+                        }
+                    }
+
+                    if (calculatedMinutes > 0 && xpElem) {
+                        xpElem.value = calculatedMinutes;
+                    }
+
+                    let aiSuccess = false;
+                    if (typeof API_URL !== 'undefined' && API_URL) {
+                        try {
+                            const response = await fetch(API_URL, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                                body: JSON.stringify({
+                                    action: 'aiParse',
+                                    username: loggedUsername,
+                                    password: loggedPassword,
+                                    note: text,
+                                    startTime: startTimeVal,
+                                    endTime: endTimeVal,
+                                    skills: USER_SKILLS || []
+                                })
+                            });
+                            const res = await response.json();
+                            if (res && (res.status === 'success' || res.result === 'success')) {
+                                if (res.summary && summaryElem) summaryElem.value = res.summary;
+                                if (res.minutes && xpElem) xpElem.value = res.minutes;
+                                if (res.skillId && skillSelectElem) skillSelectElem.value = res.skillId;
+                                aiSuccess = true;
+                            }
+                        } catch (apiErr) {
+                            console.warn("Apps Script Gemini API 呼叫異常，切換至本地降級解析:", apiErr);
+                        }
+                    }
+
+                    if (!aiSuccess) {
+                        if (text && summaryElem) {
+                            summaryElem.value = text.length > 35 ? text.substring(0, 35) + '...' : text;
+                        }
+
+                        if (skillSelectElem && USER_SKILLS && USER_SKILLS.length > 0) {
+                            const lowerText = text.toLowerCase();
+                            let matched = USER_SKILLS[0];
+                            for (const s of USER_SKILLS) {
+                                const nameLower = (s.name || '').toLowerCase();
+                                if (lowerText.includes(nameLower) || nameLower.includes(lowerText)) {
+                                    matched = s;
+                                    break;
+                                }
+                            }
+                            if (matched) skillSelectElem.value = matched.id || matched.name;
+                        }
+                    }
+
+                    const timeInfo = calculatedMinutes > 0 ? `（計算共 ${calculatedMinutes} 分鐘）` : '';
+                    showAdminToast(`解析完成！已自動帶入摘要與時間 ${timeInfo}`);
+
+                } catch (err) {
+                    console.error("AI 解析處理異常:", err);
+                    showAdminToast("解析完成，已帶入時間與摘要數據");
+                } finally {
+                    targetBtn.disabled = false;
+                    targetBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
+                }
+                return;
+            }
+
+            // 2. Publish Skill Button Handler (Google Sheet Real Write)
+            const btnPublishSkill = e.target.closest('#btn-publish-skill');
+            if (btnPublishSkill) {
+                e.preventDefault();
+
                 const skillSelect = document.getElementById('admin-skill-select');
                 const xpInput = document.getElementById('admin-xp');
                 const summaryInput = document.getElementById('admin-summary');
@@ -1022,6 +1142,8 @@
                 const xpGained = parseInt(xpInput?.value || '60') || 60;
                 const summary = summaryInput?.value.trim() || '簽署技能節點異動';
                 const note = noteInput?.value.trim() || '';
+                const startTime = startTimeInput?.value || '';
+                const endTime = endTimeInput?.value || '';
 
                 btnPublishSkill.disabled = true;
                 btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
@@ -1029,34 +1151,54 @@
                 try {
                     const response = await fetch(API_URL, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'text/plain' },
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: 'publishSkill',
+                            username: loggedUsername,
+                            password: loggedPassword,
                             skillId: selectedSkill,
+                            skill: selectedSkill,
                             xp: xpGained,
                             summary: summary,
                             note: note,
-                            startTime: startTimeInput?.value,
-                            endTime: endTimeInput?.value
+                            startTime: startTime,
+                            endTime: endTime,
+                            date: new Date().toISOString().slice(0, 10)
                         })
                     });
 
-                    showAdminToast(`已成功簽署發布！+${xpGained} min 至技能樹`);
-                    if (noteInput) noteInput.value = '';
-                    fetchCloudData();
+                    const res = await response.json();
 
+                    if (res && (res.status === 'success' || res.result === 'success')) {
+                        showAdminToast(`已成功寫入試算表！+${xpGained} min 至技能樹`);
+                        if (noteInput) noteInput.value = '';
+
+                        // Update local skill cache
+                        const targetSkill = USER_SKILLS.find(s => (s.id === selectedSkill || s.name === selectedSkill));
+                        if (targetSkill) {
+                            targetSkill.currentXP = (targetSkill.currentXP || 0) + xpGained;
+                        }
+
+                        // Re-fetch data from cloud to reflect spreadsheet changes
+                        fetchCloudData();
+                    } else {
+                        showAdminToast(`寫入失敗：${res.message || '後端驗證或權限錯誤'}`, true);
+                    }
                 } catch (err) {
-                    console.error("發布失敗:", err);
-                    showAdminToast("已進行本地同步，請確認 Google Apps Script 設定", true);
+                    console.error("發布至 Google 試算表失敗:", err);
+                    showAdminToast("發布失敗，請確認 Apps Script API 設定與網路連線", true);
                 } finally {
                     btnPublishSkill.disabled = false;
                     btnPublishSkill.innerHTML = '<i class="fa-solid fa-file-signature"></i> 簽署並發布至 Skill Chain (試算表)';
                 }
-            });
+                return;
+            }
 
-            // Publish Showcase Logic
-            const btnPublishShowcase = document.getElementById('btn-publish-showcase');
-            btnPublishShowcase?.addEventListener('click', async () => {
+            // 3. Publish Showcase Button Handler
+            const btnPublishShowcase = e.target.closest('#btn-publish-showcase');
+            if (btnPublishShowcase) {
+                e.preventDefault();
+
                 const title = document.getElementById('admin-showcase-title')?.value.trim();
                 const type = document.getElementById('admin-showcase-type')?.value;
                 const link = document.getElementById('admin-showcase-link')?.value.trim();
@@ -1073,11 +1215,13 @@
                 btnPublishShowcase.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在發布作品...';
 
                 try {
-                    await fetch(API_URL, {
+                    const response = await fetch(API_URL, {
                         method: 'POST',
-                        headers: { 'Content-Type': 'text/plain' },
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                         body: JSON.stringify({
                             action: 'publishShowcase',
+                            username: loggedUsername,
+                            password: loggedPassword,
                             item: {
                                 title,
                                 type,
@@ -1090,126 +1234,19 @@
                         })
                     });
 
-                    showAdminToast("火力展示作品發布成功！");
-                    fetchCloudData();
+                    const res = await response.json();
+                    if (res && (res.status === 'success' || res.result === 'success')) {
+                        showAdminToast("火力展示作品成功寫入 Google 試算表！");
+                        fetchCloudData();
+                    } else {
+                        showAdminToast(`發布失敗：${res.message || '權限不符'}`, true);
+                    }
                 } catch (err) {
-                    showAdminToast("作品已同步至本地視圖", false);
+                    showAdminToast("作品已同步至視圖，請確認 Apps Script 設定", false);
                 } finally {
                     btnPublishShowcase.disabled = false;
                     btnPublishShowcase.innerHTML = '<i class="fa-solid fa-fire"></i> 發布火力展示作品';
                 }
-            });
-
-            // Showcase Filter buttons
-            document.querySelectorAll('.showcase-filter-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const type = e.target.getAttribute('data-type');
-                    document.querySelectorAll('.showcase-filter-btn').forEach(b => {
-                        b.className = "showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white";
-                    });
-                    e.target.className = "showcase-filter-btn px-3 py-1 rounded-md bg-cyber-gold text-black font-semibold";
-                    renderShowcase(type);
-                });
-            });
-
-        });
-
-        document.addEventListener('click', async (e) => {
-            const targetBtn = e.target.closest('#btn-ai-parse');
-            if (!targetBtn) return;
-
-            e.preventDefault();
-
-            const noteElem = document.getElementById('admin-note');
-            const summaryElem = document.getElementById('admin-summary');
-            const xpElem = document.getElementById('admin-xp');
-            const skillSelectElem = document.getElementById('admin-skill-select');
-            const startTimeElem = document.getElementById('admin-time-start');
-            const endTimeElem = document.getElementById('admin-time-end');
-
-            const text = noteElem?.value.trim() || '';
-            const startTimeVal = startTimeElem?.value;
-            const endTimeVal = endTimeElem?.value;
-
-            if (!text && !startTimeVal && !endTimeVal) {
-                showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！", true);
-                return;
-            }
-
-            targetBtn.disabled = true;
-            targetBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> AI 數據解析中...';
-
-            try {
-                // 1. 優先計算起迄時間差 (分鐘數)
-                let calculatedMinutes = 0;
-                if (startTimeVal && endTimeVal) {
-                    const start = new Date(startTimeVal);
-                    const end = new Date(endTimeVal);
-                    if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
-                        calculatedMinutes = Math.round((end - start) / (1000 * 60));
-                    }
-                }
-
-                if (calculatedMinutes > 0 && xpElem) {
-                    xpElem.value = calculatedMinutes;
-                }
-
-                // 2. 向 Google Apps Script 發送 Gemini AI 語意解析請求
-                let aiSuccess = false;
-                if (typeof API_URL !== 'undefined' && API_URL) {
-                    try {
-                        const response = await fetch(API_URL, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'text/plain' },
-                            body: JSON.stringify({
-                                action: 'aiParse',
-                                note: text,
-                                startTime: startTimeVal,
-                                endTime: endTimeVal,
-                                skills: USER_SKILLS || []
-                            })
-                        });
-                        const res = await response.json();
-                        if (res && res.status === 'success') {
-                            if (res.summary && summaryElem) summaryElem.value = res.summary;
-                            if (res.minutes && xpElem) xpElem.value = res.minutes;
-                            if (res.skillId && skillSelectElem) skillSelectElem.value = res.skillId;
-                            aiSuccess = true;
-                        }
-                    } catch (apiErr) {
-                        console.warn("Apps Script Gemini API 呼叫異常，切換至本地降級解析:", apiErr);
-                    }
-                }
-
-                // 3. 本地降級解析備援
-                if (!aiSuccess) {
-                    if (text && summaryElem) {
-                        summaryElem.value = text.length > 35 ? text.substring(0, 35) + '...' : text;
-                    }
-
-                    if (skillSelectElem && USER_SKILLS && USER_SKILLS.length > 0) {
-                        const lowerText = text.toLowerCase();
-                        let matched = USER_SKILLS[0];
-                        for (const s of USER_SKILLS) {
-                            const nameLower = (s.name || '').toLowerCase();
-                            if (lowerText.includes(nameLower) || nameLower.includes(lowerText)) {
-                                matched = s;
-                                break;
-                            }
-                        }
-                        if (matched) skillSelectElem.value = matched.id || matched.name;
-                    }
-                }
-
-                const timeInfo = calculatedMinutes > 0 ? `（計算共 ${calculatedMinutes} 分鐘）` : '';
-                showAdminToast(`解析完成！已自動帶入摘要與時間 ${timeInfo}`);
-
-            } catch (err) {
-                console.error("AI 解析處理異常:", err);
-                showAdminToast("解析完成，已帶入時間與摘要數據");
-            } finally {
-                targetBtn.disabled = false;
-                targetBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
             }
         });
     </script>
