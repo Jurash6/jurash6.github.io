@@ -3,8 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurash | Web3 & 去中心化智庫 | Agent-Ready 歷程</title>
-    
+    <title>Jurash's Web3 & Decentralized Agent-Ready Hub</title>
+    <meta name="description" content="Jurash 的去中心化個人智庫與 Web3 學習歷程 – 適合 AI 代理人讀取的去中心化架構師經驗證明節點。">
+
+    <!-- Schema.org JSON-LD (Agent-Ready Protocol) -->
+    <script type="application/ld+json" id="schema-json-ld">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jurash",
+      "alternateName": "Jurash Cyber-Node",
+      "jobTitle": "Decentralized Architect & Web3 AI Agent System Engineer",
+      "description": "專注於去中心化系統整合、智能合約與 Web3 AI Agent 協定開發的架構師。",
+      "url": "https://jurash.hub",
+      "knowsAbout": [
+        "Web3 System Integration",
+        "Smart Contracts",
+        "Decentralized Storage & P2P",
+        "AI Agent Protocol Integration"
+      ]
+    }
+    </script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -13,87 +33,71 @@
             theme: {
                 extend: {
                     colors: {
-                        web3: {
+                        cyber: {
                             bg: '#070B12',
-                            card: '#0F172A',
-                            cardHover: '#1E293B',
+                            card: '#0D1522',
                             border: '#1E293B',
-                            borderBright: '#334155',
-                            cyan: '#06B6D4',
-                            cyanGlow: '#22D3EE',
-                            indigo: '#6366F1',
+                            accent: '#06B6D4', // Cyan
                             purple: '#8B5CF6',
-                            emerald: '#10B981',
-                            amber: '#F59E0B',
-                            muted: '#64748B'
+                            neon: '#10B981', // Emerald/Neon Green
+                            gold: '#F59E0B'
                         }
                     },
                     fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace']
                     }
                 }
             }
         }
     </script>
-    
-    <!-- FontAwesome for Web3 & Tech Icons -->
+
+    <!-- FontAwesome Icons & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- 
-      AGENT-READY WEB3 PROTOCOL:
-      這段 JSON-LD 供 LLM, Search Engines & AI On-Chain Agents 快速解析 Jurash 的 Web3 技能與去中心化架構經驗
-    -->
-    <script type="application/ld+json" id="agent-schema">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Jurash",
-      "alternateName": "Jurash Web3 & Decentralized Hub",
-      "jobTitle": "Lv.4 去中心化系統架構師 & Web3 AI Agent 專案工程師",
-      "description": "專注於區塊鏈智能合約安全、Zero-Knowledge 隱私證明、P2P 分散式網路與鏈上 AI Agent 協同協定開發。",
-      "knowsAbout": [
-        {
-          "@type": "DefinedTerm",
-          "name": "Solidity & Smart Contracts",
-          "termCode": "Lv.4",
-          "description": "14,200 / 15,000 min - 智能合約開發、DeFi 邏輯重構與 ERC/EIP 鏈上標準實現"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "ZK-Proofs & Cryptography",
-          "termCode": "Lv.4",
-          "description": "12,800 / 15,000 min - 零知識證明電路 (Circom/snarkjs) 與隱私身分驗證協定"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "P2P Network & Distributed Nodes",
-          "termCode": "Lv.3",
-          "description": "8,900 / 10,000 min - libp2p 去中心化節點通訊與點對點共識廣播"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Rust / Go High-Perf Nodes",
-          "termCode": "Lv.3",
-          "description": "6,500 / 10,000 min - 高效能驗證節點中繼站與區塊鏈 RPC 節點維運"
-        }
-      ],
-      "agentInterfaceVersion": "3.0-Web3-Decentralized",
-      "agentEndpoints": {
-        "chatMock": "embedded-widget",
-        "structuredData": "application/ld+json"
-      }
-    }
-    </script>
-
+    <!-- Custom Style Enhancements -->
     <style>
-        /* Custom Web3 Glow Scrollbar */
+        body {
+            background-color: #070B12;
+            color: #E2E8F0;
+            font-family: 'Inter', sans-serif;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Glassmorphism Card Style */
+        .cyber-card {
+            background: rgba(13, 21, 34, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(30, 41, 59, 0.8);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cyber-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Neon Glow Text & Elements */
+        .neon-text-cyan {
+            text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .neon-text-purple {
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
+            height: 8px;
         }
         ::-webkit-scrollbar-track {
             background: #070B12;
@@ -106,1164 +110,731 @@
             background: #06B6D4;
         }
 
-        /* Web3 Grid & Matrix Aesthetic */
-        .web3-grid {
-            background-color: #070B12;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12), transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.08), transparent 40%),
-                linear-gradient(to right, rgba(30, 41, 59, 0.3) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-        }
-
-        /* Glowing Border & Card Styling */
-        .glow-card {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid rgba(51, 65, 85, 0.7);
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(12px);
-        }
-        .glow-card:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.2);
-        }
-
-        .glow-card-cyan {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(6, 182, 212, 0.4);
-            box-shadow: 0 0 20px -3px rgba(6, 182, 212, 0.15);
-            backdrop-filter: blur(12px);
-        }
-
-        /* Gradient Text */
-        .text-gradient-cyan {
-            background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 50%, #6366F1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .text-gradient-purple {
-            background: linear-gradient(135deg, #A855F7 0%, #8B5CF6 50%, #06B6D4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        /* Node Pulse Animation */
-        @keyframes node-pulse {
+        /* Custom Pulse Animation for Node Status */
+        @keyframes nodePulse {
             0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.92); }
+            50% { opacity: 0.4; transform: scale(1.1); }
         }
-        .node-pulse {
-            animation: node-pulse 2.5s infinite ease-in-out;
+        .animate-node-pulse {
+            animation: nodePulse 2.5s infinite ease-in-out;
         }
     </style>
 </head>
 
-<body class="bg-web3-bg text-slate-200 font-sans min-h-screen web3-grid antialiased selection:bg-web3-cyan selection:text-black">
+<body class="min-h-screen flex flex-col justify-between selection:bg-cyber-accent selection:text-black">
 
-    <header class="sticky top-0 z-40 backdrop-blur-xl bg-web3-bg/80 border-b border-web3-border">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <!-- Brand Logo -->
-            <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 bg-web3-card border border-web3-cyan/50 rounded-lg flex items-center justify-center text-web3-cyan shadow-[0_0_12px_rgba(6,182,212,0.3)]">
-                    <i class="fa-solid fa-cubes-stacked text-base"></i>
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 border-b border-slate-800/80 bg-cyber-bg/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent group-hover:bg-cyber-accent group-hover:text-black transition-all">
+                    <i class="fa-solid fa-cube text-lg"></i>
                 </div>
-                <div>
-                    <span class="font-mono font-bold text-lg tracking-wider text-white flex items-center gap-1.5">
-                        JURASH<span class="text-web3-cyan">.WEB3</span>
+                <div class="flex flex-col">
+                    <span class="font-mono text-sm font-bold tracking-wider text-white flex items-center gap-2">
+                        JURASH <span class="text-[10px] px-1.5 py-0.5 rounded bg-cyber-accent/20 text-cyber-accent border border-cyber-accent/30">WEB3 HUB</span>
                     </span>
+                    <span class="text-[11px] text-slate-400 font-mono">Agent-Ready Protocol</span>
                 </div>
-                <span class="text-[10px] font-mono px-2 py-0.5 bg-web3-cyan/10 text-web3-cyan border border-web3-cyan/30 rounded hidden sm:inline-block">
-                    PROVEN AGENT NODE v3.0
-                </span>
-            </div>
+            </a>
 
-            <!-- Action Navigation -->
-            <nav class="flex items-center space-x-3">
-                <button id="btn-admin-console" class="text-xs font-mono px-3 py-1.5 rounded-lg border border-web3-border hover:border-web3-cyan text-slate-300 hover:text-web3-cyan transition flex items-center gap-1.5 bg-web3-card">
-                    <i class="fa-solid fa-terminal text-web3-cyan"></i>
-                    <span>節點控制台</span>
-                </button>
-                <button id="btn-inspect-schema" class="text-xs font-mono px-3 py-1.5 rounded-lg border border-web3-border hover:border-web3-purple text-slate-300 hover:text-web3-purple transition flex items-center gap-1.5 bg-web3-card">
-                    <i class="fa-solid fa-code-commit text-web3-purple"></i>
-                    <span>Agent Schema</span>
-                </button>
-                <a href="#showcase" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-web3-card border border-web3-amber/50 hover:border-web3-amber text-slate-200 hover:text-web3-amber transition flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
-                    <i class="fa-solid fa-fire-flame-curved text-web3-amber animate-pulse"></i>
-                    <span>火力展示</span>
+            <nav class="hidden md:flex items-center gap-6 text-xs font-mono">
+                <a href="#dashboard" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-chart-line text-slate-500"></i> 總覽
+                </a>
+                <a href="#skills" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-network-wired text-slate-500"></i> 鏈上技能
+                </a>
+                <a href="#showcase" class="text-slate-300 hover:text-cyber-gold transition-colors flex items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-fire text-cyber-gold animate-pulse"></i> 火力展示
+                </a>
+                <a href="#timeline" class="text-slate-300 hover:text-cyber-accent transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-timeline text-slate-500"></i> 演化軌跡
                 </a>
             </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="btn-open-login" class="px-3.5 py-1.5 rounded-lg border border-cyber-accent/40 bg-cyber-accent/10 text-cyber-accent hover:bg-cyber-accent hover:text-black font-mono text-xs font-semibold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-terminal"></i> 節點控制台
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-20 space-y-10">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
-        <!-- Agent Status Badge -->
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-slate-950/80 border border-web3-cyan/40 rounded-full text-xs font-mono text-web3-cyan backdrop-blur-md">
-            <span class="inline-block w-2 h-2 rounded-full bg-web3-cyan animate-ping"></span>
-            <span>Web3 Decentralized Agent Protocol: Active Validator Verified</span>
-        </div>
-
-        <!-- HERO SECTION -->
-        <section id="hero" class="relative glow-card-cyan rounded-2xl p-6 md:p-8 overflow-hidden">
-            <!-- Background Web3 Decorative Node Wire -->
-            <div class="absolute right-0 top-0 bottom-0 w-1/2 opacity-15 pointer-events-none flex items-center justify-center text-web3-cyan">
-                <i class="fa-solid fa-diagram-project text-[220px]"></i>
-            </div>
-            
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
+        <!-- Hero Section -->
+        <section id="hero" class="cyber-card rounded-2xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-cyber-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div class="space-y-4 max-w-2xl">
-                    <div class="flex items-center gap-3">
-                        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white flex items-center gap-2">
-                            <span>Jurash 的去中心化智庫</span>
-                        </h1>
-                        <span class="text-xs font-mono px-2.5 py-0.5 bg-web3-indigo/20 text-web3-indigo border border-web3-indigo/40 rounded-full font-semibold">
-                            VALIDATOR NODE
-                        </span>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-slate-700 text-xs font-mono text-cyber-neon">
+                        <span class="w-2 h-2 rounded-full bg-cyber-neon animate-node-pulse"></span>
+                        VALIDATOR NODE ACTIVE // AGENT-READY PROTOCOL V2.5
                     </div>
-                    
-                    <p class="text-web3-cyan font-mono text-sm md:text-base font-medium">
-                        &gt; Lv.4 去中心化架構師 & Web3 AI Agent 專案工程師
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white font-mono">
+                        Jurash <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyber-accent to-cyber-purple">的去中心化智庫</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        <span class="text-cyber-accent font-semibold">Lv.4 去中心化架構師 & Web3 AI Agent 系統工程師</span>。專注於分散式網路、智能合約設計、鏈上 Agent 協定整合與自動化修復節點。
                     </p>
-                    
-                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
-                        專注於區塊鏈智能合約開發、Zero-Knowledge 隱私證明 (ZK-Proofs)、P2P 分散式通訊與鏈上 AI Agent 協同協定設計。將分散式共識與自治代理人建構為不可篡改的信任機制。
-                    </p>
-
-                    <!-- Web3 Tech Stack Pills -->
-                    <div class="flex flex-wrap gap-2 pt-2 font-mono text-xs">
-                        <span class="bg-slate-950/70 text-web3-cyan px-2.5 py-1 rounded-md border border-web3-cyan/30 flex items-center gap-1">
-                            <i class="fa-solid fa-file-code"></i> #Solidity_SmartContracts
-                        </span>
-                        <span class="bg-slate-950/70 text-web3-purple px-2.5 py-1 rounded-md border border-web3-purple/30 flex items-center gap-1">
-                            <i class="fa-solid fa-user-shield"></i> #ZK_Proofs
-                        </span>
-                        <span class="bg-slate-950/70 text-web3-emerald px-2.5 py-1 rounded-md border border-web3-emerald/30 flex items-center gap-1">
-                            <i class="fa-solid fa-circle-nodes"></i> #P2P_Network
-                        </span>
-                        <span class="bg-slate-950/70 text-slate-300 px-2.5 py-1 rounded-md border border-web3-border">
-                            #OnChain_Agent
-                        </span>
-                        <span class="bg-slate-950/70 text-slate-300 px-2.5 py-1 rounded-md border border-web3-border">
-                            #Rust_Go_Nodes
-                        </span>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono pt-2">
+                        <span class="px-2.5 py-1 rounded bg-slate-800/80 border border-slate-700 text-slate-300"><i class="fa-solid fa-shield-halved text-cyber-accent mr-1"></i> ZK-Proofs</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-800/80 border border-slate-700 text-slate-300"><i class="fa-brands fa-ethereum text-cyber-purple mr-1"></i> Smart Contracts</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-800/80 border border-slate-700 text-slate-300"><i class="fa-solid fa-robot text-cyber-neon mr-1"></i> On-Chain Agent</span>
+                        <span class="px-2.5 py-1 rounded bg-slate-800/80 border border-slate-700 text-slate-300"><i class="fa-solid fa-network-wired text-cyber-gold mr-1"></i> IPFS & P2P</span>
                     </div>
                 </div>
 
-                <!-- Jurash Node Identity Avatar -->
-                <div class="flex flex-col items-center justify-center p-5 bg-slate-950/90 rounded-xl border border-web3-border text-center min-w-[220px] shadow-inner">
-                    <div class="relative mb-3">
-                        <div class="w-16 h-16 rounded-xl bg-web3-cyan/10 border border-web3-cyan/50 flex items-center justify-center text-web3-cyan shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                            <i class="fa-solid fa-link text-2xl"></i>
-                        </div>
-                        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-web3-emerald rounded-full border-2 border-slate-950"></span>
+                <div class="flex flex-col gap-3 w-full md:w-auto">
+                    <button id="btn-open-schema-view" class="w-full md:w-auto px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-mono text-xs font-medium transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-code text-cyber-accent"></i> 檢視 Raw Agent Schema (JSON-LD)
+                    </button>
+                    <a href="#showcase" class="w-full md:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyber-accent to-cyber-purple hover:opacity-90 text-black font-semibold font-mono text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyber-accent/20">
+                        <i class="fa-solid fa-fire"></i> 瀏覽火力展示作品
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accumulation Dashboard Section -->
+        <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="cyber-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-cyber-accent">
+                <div>
+                    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Total Proof-of-Time</div>
+                    <div class="text-2xl sm:text-3xl font-extrabold font-mono text-white flex items-baseline gap-2">
+                        <span id="total-xp-display">0</span> <span class="text-xs font-normal text-cyber-accent">min</span>
                     </div>
-                    <span class="text-xs font-mono text-slate-400">Validator Node Status</span>
-                    <span class="text-xs font-mono text-web3-emerald mt-1 font-semibold flex items-center gap-1">
-                        <i class="fa-solid fa-shield-halved text-[10px]"></i> Block Finalized (Mainnet)
-                    </span>
+                    <p class="text-[11px] text-slate-500 mt-1">鏈上總累積實戰 minutes</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent text-xl">
+                    <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+            </div>
+
+            <div class="cyber-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-cyber-purple">
+                <div>
+                    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Validator Rank</div>
+                    <div id="rank-display" class="text-2xl sm:text-3xl font-extrabold font-mono text-white">
+                        Rank Alpha
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-1">頂級去中心化驗證階層</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-cyber-purple/10 border border-cyber-purple/30 flex items-center justify-center text-cyber-purple text-xl">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+            </div>
+
+            <div class="cyber-card rounded-xl p-5 flex items-center justify-between border-l-4 border-l-cyber-neon">
+                <div>
+                    <div class="text-xs font-mono text-slate-400 uppercase tracking-wider mb-1">Active Sub-Chains</div>
+                    <div id="chains-count-display" class="text-2xl sm:text-3xl font-extrabold font-mono text-white">
+                        0
+                    </div>
+                    <p class="text-[11px] text-slate-500 mt-1">已建立節點之技能子鏈</p>
+                </div>
+                <div class="w-12 h-12 rounded-lg bg-cyber-neon/10 border border-cyber-neon/30 flex items-center justify-center text-cyber-neon text-xl">
+                    <i class="fa-solid fa-diagram-project"></i>
                 </div>
             </div>
         </section>
 
-        <!-- WEB3 BLOCK CONNECTOR 1: BLOCK HEADER & MERKLE HASH BRIDGE -->
-        <div class="flex items-center justify-center gap-3 py-2 text-web3-cyan/80">
-            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-web3-border to-web3-cyan/40"></div>
-            <div class="flex items-center gap-2 bg-web3-card/90 px-3 py-1 rounded-full border border-web3-cyan/30 font-mono text-xs backdrop-blur-md">
-                <i class="fa-solid fa-hashtag text-web3-cyan"></i>
-                <span class="text-slate-300">BLOCK #18,492,041</span>
-                <span class="text-web3-muted">|</span>
-                <span class="text-web3-cyan text-[11px]">0x7f8a...3e2b</span>
-            </div>
-            <div class="h-px flex-1 bg-gradient-to-r from-web3-cyan/40 via-web3-border to-transparent"></div>
-        </div>
-
-        <!-- DASHBOARD (ON-CHAIN PROOF-OF-SKILL XP) -->
-        <section id="dashboard" aria-label="鏈上戰力儀表板" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            
-            <!-- Overall Rank -->
-            <div class="glow-card rounded-xl p-4 flex items-center space-x-3.5">
-                <div class="p-2.5 bg-web3-cyan/10 border border-web3-cyan/40 rounded-lg text-web3-cyan">
-                    <i class="fa-solid fa-microchip text-lg"></i>
-                </div>
+        <!-- Proof-of-Skill Grid Section -->
+        <section id="skills" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
-                    <p class="text-[11px] font-mono text-web3-muted">VALIDATOR RANK</p>
-                    <p id="dash-rank" class="text-base font-bold text-white font-mono">Lv.4 Apex Node</p>
-                </div>
-            </div>
-
-            <!-- Total On-Chain Time -->
-            <div class="glow-card rounded-xl p-4 flex items-center space-x-3.5">
-                <div class="p-2.5 bg-web3-emerald/10 border border-web3-emerald/40 rounded-lg text-web3-emerald">
-                    <i class="fa-solid fa-clock text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[11px] font-mono text-web3-muted">PROOF-OF-TIME (min)</p>
-                    <p id="dash-total-xp" class="text-base font-bold text-web3-emerald font-mono">42,400 min</p>
-                </div>
-            </div>
-
-            <!-- Skill Domains -->
-            <div class="glow-card rounded-xl p-4 flex items-center space-x-3.5">
-                <div class="p-2.5 bg-web3-purple/10 border border-web3-purple/40 rounded-lg text-web3-purple">
-                    <i class="fa-solid fa-cubes text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[11px] font-mono text-web3-muted">SUB-CHAINS</p>
-                    <p id="dash-skill-count" class="text-base font-bold text-white font-mono">6 Domains</p>
-                </div>
-            </div>
-
-            <!-- Agent Readiness Index -->
-            <div class="glow-card rounded-xl p-4 flex items-center space-x-3.5">
-                <div class="p-2.5 bg-web3-indigo/10 border border-web3-indigo/40 rounded-lg text-web3-indigo">
-                    <i class="fa-solid fa-robot text-lg"></i>
-                </div>
-                <div>
-                    <p class="text-[11px] font-mono text-web3-muted">AGENT COMPATIBLE</p>
-                    <p class="text-base font-bold text-web3-cyan font-mono">100% (JSON-LD Protocol)</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- WEB3 BLOCK CONNECTOR 2: CRYPTOGRAPHIC PROOF & DISTRIBUTED NETWORK -->
-        <div class="flex items-center justify-center gap-3 py-2 text-web3-amber/80">
-            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-web3-border to-web3-amber/40"></div>
-            <div class="flex items-center gap-2 bg-web3-card/90 px-3 py-1 rounded-full border border-web3-amber/30 font-mono text-xs backdrop-blur-md">
-                <i class="fa-solid fa-fire text-web3-amber"></i>
-                <span class="text-slate-300">PORTFOLIO SHOWCASE PROTOCOL</span>
-                <i class="fa-solid fa-circle-check text-web3-amber text-[11px]"></i>
-            </div>
-            <div class="h-px flex-1 bg-gradient-to-r from-web3-amber/40 via-web3-border to-transparent"></div>
-        </div>
-
-        <!-- SHOWCASE / 火力展示 SECTION -->
-        <section id="showcase" aria-labelledby="showcase-heading" class="space-y-6 scroll-mt-20">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-web3-border pb-4">
-                <div>
-                    <h2 id="showcase-heading" class="text-xl font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-fire-flame-curved text-web3-amber"></i>
-                        <span>火力展示 (Multi-Format Portfolio Showcase)</span>
+                    <h2 class="text-xl font-bold font-mono text-white flex items-center gap-2">
+                        <i class="fa-solid fa-network-wired text-cyber-accent"></i> 驗證技能節點 (Proof-of-Skill Grid)
                     </h2>
-                    <p class="text-xs text-web3-muted font-mono mt-1">展示 Jurash 的各形式 Web3 專案作品、Live DApp、智能合約與實機演示</p>
+                    <p class="text-xs text-slate-400 mt-1">由 Google Apps Script 雲端試算表真實數據同步驅動，單位統一為 min</p>
                 </div>
-
-                <!-- Showcase Format Filter Chips -->
-                <div id="showcase-filters" class="flex flex-wrap gap-2 text-xs font-mono">
-                    <!-- Dynamic JS filter buttons -->
-                </div>
-            </div>
-
-            <!-- Showcase Cards Container -->
-            <div id="showcase-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Dynamic rendered showcase items -->
-            </div>
-        </section>
-
-        <!-- WEB3 BLOCK CONNECTOR 3: CRYPTOGRAPHIC PROOF & DISTRIBUTED NETWORK -->
-        <div class="flex items-center justify-center gap-3 py-2 text-web3-purple/80">
-            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-web3-border to-web3-purple/40"></div>
-            <div class="flex items-center gap-2 bg-web3-card/90 px-3 py-1 rounded-full border border-web3-purple/30 font-mono text-xs backdrop-blur-md">
-                <i class="fa-solid fa-key text-web3-purple"></i>
-                <span class="text-slate-300">ZK-PROOF VALIDATED</span>
-                <i class="fa-solid fa-circle-check text-web3-emerald text-[11px]"></i>
-            </div>
-            <div class="h-px flex-1 bg-gradient-to-r from-web3-purple/40 via-web3-border to-transparent"></div>
-        </div>
-
-        <!-- SKILLS GRID SECTION -->
-        <section id="skills" aria-labelledby="skills-heading" class="space-y-6">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-web3-border pb-4">
-                <div>
-                    <h2 id="skills-heading" class="text-xl font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-network-wired text-web3-cyan"></i>
-                        <span>技能節點 (Proof-of-Skill Grid)</span>
-                    </h2>
-                    <p class="text-xs text-web3-muted font-mono mt-1">鏈上去中心化能力矩陣與經驗值積累進度</p>
-                </div>
-
-                <!-- Skill Filter Pills -->
                 <div id="skill-filters" class="flex flex-wrap gap-2 text-xs font-mono">
-                    <!-- Dynamic JavaScript filter buttons -->
+                    <!-- Filter buttons injected dynamically -->
                 </div>
             </div>
 
-            <!-- Skills Cards Container -->
-            <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Dynamically rendered via JS mock data -->
+            <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skill cards dynamically populated or placeholders -->
             </div>
         </section>
 
-        <!-- WEB3 BLOCK CONNECTOR 3: SMART CONTRACT PIPELINE -->
-        <div class="flex items-center justify-center gap-3 py-2 text-web3-emerald/80">
-            <div class="h-px flex-1 bg-gradient-to-r from-transparent via-web3-border to-web3-emerald/40"></div>
-            <div class="flex items-center gap-2 bg-web3-card/90 px-3 py-1 rounded-full border border-web3-emerald/30 font-mono text-xs backdrop-blur-md">
-                <i class="fa-solid fa-code-branch text-web3-emerald"></i>
-                <span class="text-slate-300">EPOCH MILESTONE TIMELINE</span>
+        <!-- Portfolio Showcase Section (火力展示) -->
+        <section id="showcase" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+                <div>
+                    <h2 class="text-xl font-bold font-mono text-white flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-cyber-gold"></i> 火力展示 (Showcase Engine)
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">收錄多形式實戰作品：Live DApps, Smart Contracts, 影音簡報與鏈上驗證</p>
+                </div>
+                <div id="showcase-filters" class="flex flex-wrap gap-2 text-xs font-mono">
+                    <button data-type="all" class="showcase-filter-btn px-3 py-1 rounded-md bg-cyber-gold text-black font-semibold">全部作品</button>
+                    <button data-type="dapp" class="showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white">DApp / 應用</button>
+                    <button data-type="code" class="showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white">Repo / 合約</button>
+                    <button data-type="media" class="showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white">影音 / 簡報</button>
+                </div>
             </div>
-            <div class="h-px flex-1 bg-gradient-to-r from-web3-emerald/40 via-web3-border to-transparent"></div>
-        </div>
 
-        <!-- TIMELINE SECTION -->
-        <section id="timeline-section" aria-labelledby="timeline-heading" class="space-y-6 pt-2">
-            <div class="border-b border-web3-border pb-4">
-                <h2 id="timeline-heading" class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-timeline text-web3-purple"></i>
-                    <span>鏈上里程碑 (Epoch Timeline)</span>
+            <div id="showcase-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Showcase cards populated via JS -->
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section id="timeline" class="space-y-6">
+            <div class="border-b border-slate-800 pb-4">
+                <h2 class="text-xl font-bold font-mono text-white flex items-center gap-2">
+                    <i class="fa-solid fa-timeline text-cyber-purple"></i> 演化與學習軌跡時間軸
                 </h2>
-                <p class="text-xs text-web3-muted font-mono mt-1">語義化記載 Jurash 的 Web3 專案部署與技術突破</p>
+                <p class="text-xs text-slate-400 mt-1">學習紀錄、專案發布與驗證異動時間序列</p>
             </div>
 
-            <!-- Vertical Timeline Wrapper -->
-            <div class="relative border-l-2 border-web3-border ml-3 md:ml-6 space-y-8 pl-6 md:pl-8" id="timeline-container">
-                <!-- Dynamically populated semantic <article> elements via JS -->
+            <div class="relative border-l-2 border-slate-800 ml-4 pl-6 space-y-8" id="timeline-container">
+                <!-- Timeline items populated via JS -->
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-web3-border bg-web3-card/60 py-8 text-center text-xs font-mono text-web3-muted">
-        <div class="max-w-6xl mx-auto px-4 space-y-2">
-            <p>© 2026 Jurash Decentralized Cybernetic Hub. Powered by Web3 & Agent-Ready Standards.</p>
-            <p class="text-slate-500">Built with Vanilla JS, Tailwind CSS & Schema.org JSON-LD Standards.</p>
+    <!-- Footer Section -->
+    <footer class="border-t border-slate-800/80 bg-cyber-bg py-8 mt-12 text-center text-xs font-mono text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p>© 2026 Jurash's Web3 & Decentralized Hub. Built with Agent-Ready Protocol.</p>
+            <p class="text-[11px] text-slate-600">Syncing with Google Apps Script Endpoint // Schema.org Compliant</p>
         </div>
     </footer>
 
-    <!-- ADMIN LOGIN MODAL -->
-    <dialog id="admin-login-modal" class="bg-web3-card text-slate-200 border border-web3-cyan/50 rounded-2xl p-6 max-w-md w-full backdrop:bg-black/80 backdrop:backdrop-blur-md shadow-2xl font-sans">
-        <div class="flex items-center justify-between mb-4 border-b border-web3-border pb-3">
-            <h3 class="text-base font-bold text-web3-cyan flex items-center gap-2 font-mono">
-                <i class="fa-solid fa-shield-halved"></i> 節點控制台驗證
-            </h3>
-            <button id="btn-close-login-modal" class="text-slate-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <form id="login-form" class="space-y-4">
-            <div>
-                <label class="block text-xs text-slate-400 mb-1 font-mono">節點管理者帳號</label>
-                <input type="text" id="login-username" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
-            </div>
-            <div>
-                <label class="block text-xs text-slate-400 mb-1 font-mono">Private Key 驗證碼</label>
-                <input type="password" id="login-password" required class="w-full bg-slate-950 border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
-            </div>
-            <div id="login-error-msg" class="hidden text-xs text-red-400 font-mono"></div>
-            <button type="submit" class="w-full py-2.5 bg-web3-cyan text-black font-mono text-xs font-bold rounded-lg transition hover:bg-web3-cyanGlow flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                <i class="fa-solid fa-key"></i> 驗證身分並開啓控制台
-            </button>
-        </form>
-    </dialog>
-
-    <!-- ADMIN PANEL MODAL -->
-    <dialog id="admin-panel-modal" class="bg-web3-card text-slate-200 border border-web3-cyan/50 rounded-2xl p-6 max-w-4xl w-full backdrop:bg-black/85 backdrop:backdrop-blur-md shadow-2xl font-sans max-h-[90vh] overflow-y-auto">
-        <!-- Panel Header -->
-        <div class="flex items-center justify-between border-b border-web3-border pb-3 mb-5">
-            <div class="flex items-center space-x-3">
-                <div class="p-2 bg-web3-cyan/10 border border-web3-cyan/30 rounded-lg text-web3-cyan">
-                    <i class="fa-solid fa-terminal text-lg"></i>
+    <!-- Floating AI Agent Bot Widget -->
+    <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+        <!-- Floating Bot Popup Window -->
+        <div id="ai-bot-modal" class="hidden w-80 sm:w-96 h-96 cyber-card rounded-2xl flex flex-col shadow-2xl border-cyber-accent/40 overflow-hidden transition-all duration-300">
+            <div class="p-3.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-2.5 h-2.5 rounded-full bg-cyber-neon animate-pulse"></div>
+                    <span class="font-mono text-xs font-bold text-white flex items-center gap-1.5">
+                        <i class="fa-solid fa-robot text-cyber-accent"></i> Jurash AI Agent Assistant
+                    </span>
                 </div>
-                <div>
-                    <h3 class="text-base font-bold text-white font-mono">Web3 節點控制器 (Node Admin Console)</h3>
-                    <p class="text-[11px] text-web3-muted">鏈上隨筆解析、火力展示作品上傳與動態節點數據異動</p>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <button id="btn-admin-logout" class="text-xs font-mono px-2.5 py-1 rounded-md bg-red-950/60 text-red-400 border border-red-800 hover:bg-red-900 transition flex items-center gap-1">
-                    <i class="fa-solid fa-right-from-bracket"></i> 登出
-                </button>
-                <button id="btn-close-admin-modal" class="text-slate-400 hover:text-white text-lg px-1">
+                <button id="btn-close-ai-bot" class="text-slate-400 hover:text-white text-xs px-2 py-1">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
-        </div>
-
-        <!-- Admin Navigation Tabs -->
-        <div class="flex border-b border-web3-border mb-4 font-mono text-xs gap-2">
-            <button id="tab-admin-notes" class="px-4 py-2 border-b-2 border-web3-cyan text-web3-cyan font-bold flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-pen-to-square"></i> 鏈上隨筆與時間
-            </button>
-            <button id="tab-admin-showcase" class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-fire text-web3-amber"></i> 上傳火力展示作品
-            </button>
-        </div>
-
-        <div class="space-y-6">
-            <!-- Feedback Toast Message -->
-            <div id="admin-toast" class="hidden p-3 bg-web3-emerald/20 border border-web3-emerald/50 rounded-lg text-emerald-300 text-xs font-mono flex items-center justify-between">
-                <span id="admin-toast-text"></span>
-                <i class="fa-solid fa-check"></i>
+            
+            <div id="ai-chat-messages" class="flex-grow p-4 space-y-3 overflow-y-auto text-xs font-mono">
+                <div class="bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-slate-200">
+                    👋 你好！我是 Jurash 的 <b>On-Chain AI Agent Assistant</b>。你可以向我詢問 Jurash 的 Web3 技能、投入時間數據，或要求匯出 Agent Schema！
+                </div>
             </div>
 
-            <!-- TAB CONTENT 1: Notes & Skill XP -->
-            <div id="panel-section-notes" class="space-y-6">
-                <!-- Section 1: Note Input & AI Parse -->
-                <div class="bg-slate-950/90 p-4 rounded-xl border border-web3-border space-y-3">
+            <div class="p-3 bg-slate-900 border-t border-slate-800 flex items-center gap-2">
+                <input type="text" id="ai-chat-input" placeholder="詢問 Agent 或輸入 query..." class="flex-grow bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyber-accent font-mono">
+                <button id="ai-chat-send" class="px-3 py-2 bg-cyber-accent text-black rounded-lg hover:bg-opacity-90 transition-all font-mono text-xs font-bold">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Trigger Button -->
+        <button id="ai-bot-btn" class="w-13 h-13 p-3.5 rounded-full bg-gradient-to-r from-cyber-accent to-cyber-purple text-black font-bold shadow-lg shadow-cyber-accent/30 hover:scale-110 active:scale-95 transition-all flex items-center justify-center text-xl">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+    </div>
+
+    <!-- Raw Schema Viewer Modal -->
+    <dialog id="schema-modal" class="bg-transparent backdrop:bg-black/80 p-0 rounded-2xl w-full max-w-2xl">
+        <div class="cyber-card rounded-2xl p-6 space-y-4 border-cyber-accent/30">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold font-mono text-white flex items-center gap-2">
+                    <i class="fa-solid fa-code text-cyber-accent"></i> Schema.org (JSON-LD) Raw Data
+                </h3>
+                <form method="dialog">
+                    <button class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </form>
+            </div>
+            <pre id="schema-raw-content" class="bg-slate-950 p-4 rounded-xl text-xs font-mono text-cyber-neon overflow-x-auto max-h-96 border border-slate-800"></pre>
+            <div class="flex justify-end">
+                <button id="btn-copy-schema" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-mono text-white rounded-lg transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-copy"></i> 複製 JSON-LD
+                </button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Node Admin Login Modal -->
+    <dialog id="admin-login-modal" class="bg-transparent backdrop:bg-black/85 p-0 rounded-2xl w-full max-w-md">
+        <div class="cyber-card rounded-2xl p-6 space-y-5 border-cyber-accent/40 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-cyber-accent"></div>
+                    <h3 class="text-base font-bold font-mono text-white">節點控制台身分驗證</h3>
+                </div>
+                <form method="dialog">
+                    <button class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                </form>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">節點帳號 (Username)</label>
+                    <input type="text" id="login-username" placeholder="請輸入節點帳號" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-white focus:border-cyber-accent focus:outline-none font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">驗證密碼 (Password)</label>
+                    <input type="password" id="login-password" placeholder="請輸入驗證密碼" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3.5 py-2 text-xs text-white focus:border-cyber-accent focus:outline-none font-mono">
+                </div>
+                <div id="login-error-msg" class="hidden text-xs text-rose-400 font-mono bg-rose-950/50 p-2 rounded border border-rose-800"></div>
+                <button type="submit" class="w-full py-2.5 rounded-lg bg-cyber-accent text-black font-mono text-xs font-bold hover:bg-opacity-90 transition-all">
+                    簽署身分證認並開啟 Console
+                </button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- Node Admin Console Main Panel Modal -->
+    <dialog id="admin-panel-modal" class="bg-transparent backdrop:bg-black/90 p-0 rounded-2xl w-full max-w-4xl">
+        <div class="cyber-card rounded-2xl p-6 space-y-6 border-cyber-accent/50 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-cyber-accent/10 border border-cyber-accent/30 flex items-center justify-center text-cyber-accent">
+                        <i class="fa-solid fa-terminal text-lg"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold font-mono text-white">Web3 Node Admin Console</h3>
+                        <p class="text-xs text-slate-400">已通過 Apps Script 身分簽署權限認證</p>
+                    </div>
+                </div>
+                <form method="dialog">
+                    <button class="text-slate-400 hover:text-white px-3 py-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </form>
+            </div>
+
+            <!-- Tab Navigation for Admin -->
+            <div class="flex border-b border-slate-800 text-xs font-mono gap-4">
+                <button id="tab-btn-notes" class="px-4 py-2 border-b-2 border-cyber-accent text-cyber-accent font-bold">
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> 鏈上隨筆與時間
+                </button>
+                <button id="tab-btn-showcase" class="px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200">
+                    <i class="fa-solid fa-fire mr-1 text-cyber-gold"></i> 上傳火力展示作品
+                </button>
+            </div>
+
+            <!-- Admin Tab 1: Deployment Notes & Skill Publishing -->
+            <div id="admin-tab-notes" class="space-y-5">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4 space-y-3">
                     <div class="flex items-center justify-between">
-                        <label class="text-xs font-bold font-mono text-web3-cyan flex items-center gap-2">
+                        <label class="text-xs font-mono font-bold text-cyber-accent flex items-center gap-1.5">
                             <i class="fa-solid fa-pen-to-square"></i> 鏈上隨筆 / 部署日誌 (Deployment Notes)
                         </label>
-                        <span class="text-[10px] text-web3-muted font-mono">輸入開發心得與執行時間起迄，AI 自動計算分鐘數</span>
+                        <span class="text-[11px] font-mono text-slate-400">輸入開發心得與執行時間起迄，AI 自動計算分鐘數</span>
                     </div>
-
-                    <!-- 執行時間起迄欄位 -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-web3-bg/60 p-3 rounded-lg border border-web3-border/80">
+                    
+                    <!-- Date & Time Range Inputs -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-[11px] font-mono text-slate-300 mb-1 flex items-center gap-1">
-                                <i class="fa-regular fa-clock text-web3-cyan"></i> 執行開始時間 (Start Time)
-                            </label>
-                            <input type="datetime-local" id="admin-time-start" class="w-full bg-slate-950 border border-web3-border rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
+                            <label class="block text-[11px] font-mono text-slate-400 mb-1"><i class="fa-regular fa-clock text-cyber-accent mr-1"></i> 執行開始時間 (Start Time)</label>
+                            <input type="datetime-local" id="admin-time-start" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:border-cyber-accent font-mono">
                         </div>
                         <div>
-                            <label class="block text-[11px] font-mono text-slate-300 mb-1 flex items-center gap-1">
-                                <i class="fa-solid fa-hourglass-end text-web3-purple"></i> 執行結束時間 (End Time)
-                            </label>
-                            <input type="datetime-local" id="admin-time-end" class="w-full bg-slate-950 border border-web3-border rounded-lg px-2.5 py-1.5 text-xs text-white focus:border-web3-purple focus:outline-none font-mono">
+                            <label class="block text-[11px] font-mono text-slate-400 mb-1"><i class="fa-solid fa-hourglass-end text-cyber-purple mr-1"></i> 執行結束時間 (End Time)</label>
+                            <input type="datetime-local" id="admin-time-end" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white focus:border-cyber-accent font-mono">
                         </div>
                     </div>
 
-                    <textarea id="admin-note-input" rows="3" class="w-full bg-web3-bg border border-web3-border rounded-lg p-3 text-xs text-slate-200 focus:border-web3-cyan focus:outline-none font-sans" placeholder="例如：今天完成與 Circom 零知識證明電路模組重構，並針對 SnarkJS 驗證速度進行優化，成功讓鏈上驗證 Gas Fee 降低 35%..."></textarea>
+                    <textarea id="admin-note" rows="3" placeholder="例如：今天針對跨鏈橋智能合約進行了重入攻擊測試與邏輯修復，成功優化手續費消耗..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs text-white focus:border-cyber-accent focus:outline-none font-mono"></textarea>
                     
                     <div class="flex justify-end">
-                        <button id="btn-ai-parse" type="button" class="px-4 py-2 bg-web3-purple text-white font-mono font-bold text-xs rounded-lg hover:bg-purple-600 transition flex items-center gap-2 shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+                        <button id="btn-ai-parse" class="px-4 py-2 bg-gradient-to-r from-cyber-purple to-cyber-accent text-black font-mono text-xs font-bold rounded-lg hover:opacity-90 transition-all flex items-center gap-2">
                             <i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析
                         </button>
                     </div>
                 </div>
 
-                <!-- Section 2: Preview & Edit Area -->
-                <div class="bg-slate-950/90 p-4 rounded-xl border border-web3-border space-y-4">
-                    <h4 class="text-xs font-bold font-mono text-web3-emerald flex items-center gap-2 border-b border-web3-border pb-2">
-                        <i class="fa-solid fa-sliders"></i> 數據預覽與編輯簽署
-                    </h4>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1 font-mono">技能節點分類 (Domain)</label>
-                            <select id="admin-skill-select" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-cyan focus:outline-none font-mono">
-                                <!-- Options dynamically generated by JS -->
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1 font-mono">投入時間 (min)</label>
-                            <input type="number" id="admin-xp-input" value="120" min="5" max="10000" step="5" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-web3-emerald font-bold focus:border-web3-cyan focus:outline-none font-mono">
-                        </div>
-                        <div class="md:col-span-3">
-                            <label class="block text-[11px] text-slate-400 mb-1 font-mono">提煉重點 (Refined Summary)</label>
-                            <input type="text" id="admin-summary-input" value="完成 Circom 零知識證明驗證優化與 Gas Fee 降低" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-slate-200 focus:border-web3-cyan focus:outline-none font-sans">
-                        </div>
+                <!-- Preview & Form Inputs -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">目標技能分類</label>
+                        <select id="admin-skill-select" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-cyber-accent">
+                            <!-- Populated dynamically -->
+                        </select>
                     </div>
-
-                    <div class="flex justify-end pt-2">
-                        <button id="btn-publish-skill" type="button" class="px-5 py-2.5 bg-web3-cyan text-black font-mono font-bold text-xs rounded-lg hover:bg-web3-cyanGlow transition flex items-center gap-2 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                            <i class="fa-solid fa-signature"></i> 簽署並發布至 Skill Chain
-                        </button>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">投入時間 (min)</label>
+                        <input type="number" id="admin-xp" value="60" min="1" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-cyber-accent">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">提煉重點摘要</label>
+                        <input type="text" id="admin-summary" placeholder="摘要簡述" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:border-cyber-accent">
                     </div>
                 </div>
 
-                <!-- Section 3: History List -->
-                <div class="bg-slate-950/90 p-4 rounded-xl border border-web3-border space-y-3">
-                    <div class="flex items-center justify-between border-b border-web3-border pb-2">
-                        <h4 class="text-xs font-bold font-mono text-white flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-web3-cyan"></i> 最近鏈上簽署異動紀錄 (On-Chain History)
-                        </h4>
-                        <span class="text-[10px] text-web3-muted font-mono">顯示最近 5 筆紀錄，可點擊切換狀態</span>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs font-sans">
-                            <thead>
-                                <tr class="border-b border-web3-border text-web3-muted font-mono text-[11px]">
-                                    <th class="py-2 px-2">日期</th>
-                                    <th class="py-2 px-2">技能節點</th>
-                                    <th class="py-2 px-2">提煉重點</th>
-                                    <th class="py-2 px-2">投入時間 (min)</th>
-                                    <th class="py-2 px-2 text-center">狀態 (切換)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-history-tbody" class="divide-y divide-web3-border/50 text-slate-300 font-sans">
-                                <!-- Dynamic history rows via JS -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <button id="btn-publish-skill" class="w-full py-2.5 rounded-lg bg-cyber-neon text-black font-mono text-xs font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-file-signature"></i> 簽署並發布至 Skill Chain (試算表)
+                </button>
             </div>
 
-            <!-- TAB CONTENT 2: Upload Showcase Item -->
-            <div id="panel-section-showcase" class="hidden space-y-4">
-                <div class="bg-slate-950/90 p-4 rounded-xl border border-web3-amber/40 space-y-4">
-                    <h4 class="text-xs font-bold font-mono text-web3-amber flex items-center gap-2 border-b border-web3-border pb-2">
-                        <i class="fa-solid fa-plus-circle"></i> 新增火力展示作品 (Add Portfolio Showcase Item)
-                    </h4>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 font-mono text-xs">
-                        <div class="md:col-span-2">
-                            <label class="block text-[11px] text-slate-400 mb-1">作品名稱 (Project Title) *</label>
-                            <input type="text" id="sc-input-title" placeholder="例如：AegisZK-Shield 去中心化隱私帳戶" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">展示形式 (Format) *</label>
-                            <select id="sc-input-format" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                                <option value="dapp">🚀 Live DApp (互動式應用)</option>
-                                <option value="code">💻 Smart Contract / Code Repo (程式碼/Repo)</option>
-                                <option value="media">🎬 Video / Pitch Media (實機影音/簡報)</option>
-                                <option value="doc">📄 Whitepaper / ZK Proof (白皮書/驗證報告)</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">封面圖片或預覽圖 URL</label>
-                            <input type="url" id="sc-input-image" placeholder="https://images.unsplash.com/..." class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">Live Demo / DApp 連結 URL</label>
-                            <input type="url" id="sc-input-demo" placeholder="https://aegis-zk.eth.limo" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-[11px] text-slate-400 mb-1">GitHub / Code 連結 URL</label>
-                            <input type="url" id="sc-input-code" placeholder="https://github.com/jurash/aegis-zk" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                        </div>
-
-                        <div class="md:col-span-2">
-                            <label class="block text-[11px] text-slate-400 mb-1">技術特點與說明 (Highlights) *</label>
-                            <textarea id="sc-input-desc" rows="3" placeholder="描述作品核心技術、鏈上架構與創新點..." class="w-full bg-web3-bg border border-web3-border rounded-lg p-3 text-xs text-slate-200 focus:border-web3-amber focus:outline-none font-sans"></textarea>
-                        </div>
-
-                        <div class="md:col-span-2">
-                            <label class="block text-[11px] text-slate-400 mb-1">技術標籤 (Tags, comma separated)</label>
-                            <input type="text" id="sc-input-tags" placeholder="Solidity, Circom, ERC-4337, Next.js" class="w-full bg-web3-bg border border-web3-border rounded-lg px-3 py-2 text-xs text-white focus:border-web3-amber focus:outline-none">
-                        </div>
+            <!-- Admin Tab 2: Showcase Portfolio Upload -->
+            <div id="admin-tab-showcase" class="hidden space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">作品名稱</label>
+                        <input type="text" id="admin-showcase-title" placeholder="例如：DeFi Auto-Yield Agent" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono">
                     </div>
-
-                    <div class="flex justify-end pt-2">
-                        <button id="btn-add-showcase" type="button" class="px-5 py-2.5 bg-web3-amber text-black font-mono font-bold text-xs rounded-lg hover:bg-amber-400 transition flex items-center gap-2 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> 發布作品至火力展示區
-                        </button>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">作品類型</label>
+                        <select id="admin-showcase-type" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono">
+                            <option value="dapp">Live DApp / 應用</option>
+                            <option value="code">Repo / 智能合約</option>
+                            <option value="media">影音 / 簡報展示</option>
+                        </select>
                     </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">線上 Demo / 連結 URL</label>
+                        <input type="url" id="admin-showcase-link" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-mono text-slate-400 mb-1">GitHub / Code 連結</label>
+                        <input type="url" id="admin-showcase-github" placeholder="https://github.com/..." class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">作品描述說明</label>
+                    <textarea id="admin-showcase-desc" rows="2" placeholder="簡述此作品解決的問題與技術架構..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-xs text-white font-mono"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-mono text-slate-400 mb-1">標籤 (以逗點分隔)</label>
+                    <input type="text" id="admin-showcase-tags" placeholder="Solidity, React, IPFS" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono">
+                </div>
+
+                <button id="btn-publish-showcase" class="w-full py-2.5 rounded-lg bg-cyber-gold text-black font-mono text-xs font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-fire"></i> 發布火力展示作品
+                </button>
+            </div>
+
+            <!-- History Table -->
+            <div class="pt-4 border-t border-slate-800">
+                <h4 class="text-xs font-mono font-bold text-slate-300 mb-3 flex items-center gap-1.5">
+                    <i class="fa-solid fa-history"></i> 最近鏈上異動與發布紀錄
+                </h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs font-mono">
+                        <thead class="bg-slate-900 text-slate-400">
+                            <tr>
+                                <th class="p-2.5">時間</th>
+                                <th class="p-2.5">技能節點</th>
+                                <th class="p-2.5">重點摘要</th>
+                                <th class="p-2.5">投入 (min)</th>
+                                <th class="p-2.5">狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-history-tbody" class="divide-y divide-slate-800/60 text-slate-300">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </dialog>
 
-    <!-- SHOWCASE DETAIL MODAL -->
-    <dialog id="showcase-detail-modal" class="bg-web3-card text-slate-200 border border-web3-amber/50 rounded-2xl p-6 max-w-2xl w-full backdrop:bg-black/85 backdrop:backdrop-blur-md shadow-2xl font-sans">
-        <div class="flex items-center justify-between mb-4 border-b border-web3-border pb-3">
-            <h3 id="sc-modal-title" class="text-base font-bold text-web3-amber flex items-center gap-2 font-mono">
-                <i class="fa-solid fa-fire-flame-curved"></i> 作品檢視細節
-            </h3>
-            <button id="btn-close-sc-modal" class="text-slate-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+    <!-- Toast Notification Container -->
+    <div id="admin-toast" class="fixed top-20 right-6 z-50 pointer-events-none transition-all duration-300 transform opacity-0 translate-y-[-10px]">
+        <div id="admin-toast-content" class="px-4 py-3 rounded-xl bg-slate-900 border border-cyber-accent text-white font-mono text-xs shadow-2xl flex items-center gap-2">
+            <i class="fa-solid fa-circle-check text-cyber-neon"></i> <span id="toast-message">操作成功</span>
         </div>
-        
-        <div class="space-y-4 text-xs">
-            <div id="sc-modal-img-container" class="rounded-xl overflow-hidden border border-web3-border max-h-56 bg-slate-950">
-                <img id="sc-modal-img" src="" alt="Showcase Preview" class="w-full h-full object-cover">
-            </div>
-
-            <div class="flex items-center justify-between font-mono">
-                <span id="sc-modal-format-badge" class="px-2.5 py-1 rounded bg-web3-amber/20 text-web3-amber border border-web3-amber/30 text-[11px]"></span>
-                <span id="sc-modal-date" class="text-web3-muted text-[11px]">2026 Q1</span>
-            </div>
-
-            <p id="sc-modal-desc" class="text-slate-300 leading-relaxed font-sans text-sm"></p>
-
-            <div id="sc-modal-tags" class="flex flex-wrap gap-1.5 font-mono text-[11px]"></div>
-
-            <div class="pt-4 border-t border-web3-border flex flex-wrap gap-3 justify-end font-mono">
-                <a id="sc-modal-code-link" href="#" target="_blank" class="hidden px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 rounded-lg border border-web3-border transition items-center gap-1.5">
-                    <i class="fa-brands fa-github text-slate-400"></i> Code Repo
-                </a>
-                <a id="sc-modal-demo-link" href="#" target="_blank" class="hidden px-4 py-2 bg-web3-amber text-black font-bold rounded-lg hover:bg-amber-400 transition items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.3)]">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> 開啟 Live Demo / DApp
-                </a>
-            </div>
-        </div>
-    </dialog>
-
-    <!-- JSON-LD INSPECTOR MODAL -->
-    <dialog id="schema-modal" class="bg-web3-card text-slate-200 border border-web3-cyan/50 rounded-2xl p-6 max-w-2xl w-full backdrop:bg-black/85 backdrop:backdrop-blur-md shadow-2xl font-mono">
-        <div class="flex items-center justify-between mb-4 border-b border-web3-border pb-3">
-            <h3 class="text-base font-bold text-web3-cyan flex items-center gap-2">
-                <i class="fa-solid fa-code-commit"></i> Jurash Agent JSON-LD Schema
-            </h3>
-            <button id="btn-close-modal" class="text-slate-400 hover:text-white text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <p class="text-xs text-slate-400 mb-3 font-mono">這段資料直接嵌入在 HTML `<head>` 中，供 Web3 AI 代理人與搜尋引擎讀取：</p>
-        <pre class="bg-slate-950 p-4 text-xs font-mono text-web3-cyan overflow-x-auto border border-web3-border rounded-xl max-h-80" id="schema-preview-code"></pre>
-        <div class="mt-4 flex justify-end gap-3">
-            <button id="btn-copy-schema" class="px-4 py-2 bg-web3-cyan text-black font-mono text-xs font-bold rounded-lg transition hover:bg-web3-cyanGlow">
-                <i class="fa-regular fa-copy mr-1"></i> 複製 Schema 資料
-            </button>
-        </div>
-    </dialog>
-
-    <!-- FLOATING AI CHAT BOT WIDGET -->
-    <div class="fixed bottom-6 right-4 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
-        
-        <!-- Floating Chat Dialogue Box -->
-        <div id="ai-chat-box" class="hidden pointer-events-auto mb-4 w-[calc(100vw-2rem)] sm:w-[380px] max-h-[75vh] h-[480px] bg-web3-card border border-web3-cyan/50 rounded-2xl shadow-2xl overflow-hidden flex flex-col backdrop-blur-xl transition-all duration-300">
-            
-            <!-- Chat Header -->
-            <div class="bg-slate-950 px-4 py-3 border-b border-web3-border flex items-center justify-between shrink-0 font-mono">
-                <div class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-web3-emerald animate-pulse"></span>
-                    <span class="text-xs font-bold text-white flex items-center gap-1.5">
-                        <i class="fa-solid fa-robot text-web3-cyan"></i> Jurash.AI Web3 Node-Agent
-                    </span>
-                </div>
-                <button id="ai-chat-close" class="text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-sm"></i>
-                </button>
-            </div>
-
-            <!-- Message Scroll Area -->
-            <div id="chat-messages" class="flex-1 p-4 space-y-3 overflow-y-auto text-xs font-sans">
-                <div class="bg-slate-900 border border-web3-border p-3 rounded-xl text-slate-300 max-w-[88%] leading-relaxed font-sans">
-                    ⚡ 你好！我是 Jurash 的 Web3 AI 代理人。你可以詢問關於 Jurash 的 Solidity 智能合約能力、零知識證明 (ZK) 專案經驗，或取得 Web3 Agent JSON-LD Profile。
-                </div>
-            </div>
-
-            <!-- Preset Quick Chips -->
-            <div class="p-2 border-t border-web3-border bg-slate-950 flex gap-1.5 overflow-x-auto text-[11px] font-mono whitespace-nowrap shrink-0">
-                <button class="chat-chip px-2.5 py-1 rounded-md bg-web3-card hover:bg-web3-cyan hover:text-black text-slate-300 border border-web3-border transition">
-                    💡 Solidity 戰力？
-                </button>
-                <button class="chat-chip px-2.5 py-1 rounded-md bg-web3-card hover:bg-web3-cyan hover:text-black text-slate-300 border border-web3-border transition">
-                    🚀 最新 Web3 專案？
-                </button>
-                <button class="chat-chip px-2.5 py-1 rounded-md bg-web3-card hover:bg-web3-cyan hover:text-black text-slate-300 border border-web3-border transition">
-                    🧬 Agent Schema
-                </button>
-            </div>
-
-            <!-- Input Form -->
-            <form id="chat-form" class="p-3 border-t border-web3-border flex gap-2 bg-slate-950 shrink-0">
-                <input type="text" id="chat-input" placeholder="對 Jurash AI 提問..." class="flex-1 bg-web3-bg border border-web3-border rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-web3-cyan font-sans">
-                <button type="submit" class="bg-web3-cyan text-black px-3.5 py-1.5 rounded-lg text-xs font-bold font-mono hover:bg-web3-cyanGlow transition">
-                    <i class="fa-solid fa-paper-plane"></i>
-                </button>
-            </form>
-        </div>
-
-        <!-- Floating Toggle Button -->
-        <button id="ai-chat-toggle" aria-label="Open AI Web3 Assistant" class="pointer-events-auto w-14 h-14 rounded-2xl bg-web3-cyan text-black border border-web3-cyanGlow flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:scale-105 active:scale-95 transition duration-200 relative group">
-            <i class="fa-solid fa-cubes text-xl text-slate-950"></i>
-            <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-web3-emerald border-2 border-slate-950"></span>
-            
-            <!-- Tooltip -->
-            <span class="absolute right-16 bg-web3-card text-white text-xs font-mono px-3 py-1.5 rounded-lg border border-web3-border opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none shadow-xl">
-                與 Jurash AI 代理人對話
-            </span>
-        </button>
     </div>
 
-    <!-- JAVASCRIPT: DATA & INTERACTIVE LOGIC -->
+    <!-- Application JavaScript Logic -->
     <script>
-        // Web3 API Endpoint (Google Apps Script Web App)
+        // Google Apps Script Web App Endpoint URL
         const API_URL = "https://script.google.com/macros/s/AKfycbzw0CNwNnnSzOzfRnj02H98Zv8b6pFDS-W5awArRmtpglVoFxWTEIR-xoZLoX7j_3c/exec";
 
-        // Cloud Synchronization Helper
-        async function syncToCloud(action, payload) {
-            if (!API_URL) return;
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    body: JSON.stringify({ action, payload, timestamp: new Date().toISOString() })
-                });
-                const result = await response.json();
-                console.log('Cloud Sync Success:', result);
-                return result;
-            } catch (err) {
-                console.warn('Cloud Sync Notice (Saved locally):', err);
+        // Global State Variables
+        let USER_SKILLS = [];
+        let USER_PROJECTS = [];
+        let SHOWCASE_ITEMS = [];
+        let ADMIN_HISTORY = [];
+        let isLoggedIn = false;
+
+        function showAdminToast(message, isError = false) {
+            const toast = document.getElementById('admin-toast');
+            const toastContent = document.getElementById('admin-toast-content');
+            const toastMsg = document.getElementById('toast-message');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.textContent = message;
+            if (isError) {
+                toastContent.className = "px-4 py-3 rounded-xl bg-slate-900 border border-rose-500 text-rose-300 font-mono text-xs shadow-2xl flex items-center gap-2";
+            } else {
+                toastContent.className = "px-4 py-3 rounded-xl bg-slate-900 border border-cyber-accent text-white font-mono text-xs shadow-2xl flex items-center gap-2";
             }
+
+            toast.classList.remove('opacity-0', 'translate-y-[-10px]', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-[-10px]', 'pointer-events-none');
+            }, 3500);
         }
 
-        // 全網頁資料容器 - 初始化為空陣列，完全由 Apps Script API 真實資料填入
-        const SHOWCASE_ITEMS = [];
-        const USER_SKILLS = [];
-        const USER_PROJECTS = [];
-        let ADMIN_HISTORY = [];
-
-        // Fetch Cloud State on Load
         async function fetchCloudData() {
-            if (!API_URL) return;
             try {
                 const response = await fetch(`${API_URL}?action=getData`);
-                if (!response.ok) return;
                 const data = await response.json();
                 
-                if (data) {
-                    if (data.showcaseItems && Array.isArray(data.showcaseItems)) {
-                        SHOWCASE_ITEMS.length = 0;
-                        SHOWCASE_ITEMS.push(...data.showcaseItems);
-                    }
-                    if (data.history && Array.isArray(data.history)) {
-                        ADMIN_HISTORY.length = 0;
-                        ADMIN_HISTORY.push(...data.history);
-                    }
-                    if (data.skills && Array.isArray(data.skills)) {
-                        USER_SKILLS.length = 0;
-                        USER_SKILLS.push(...data.skills);
-                        
-                        // 動態更新 JSON-LD Schema
-                        const schemaElem = document.getElementById('agent-schema');
-                        if (schemaElem) {
-                            try {
-                                const schemaObj = JSON.parse(schemaElem.textContent);
-                                schemaObj.knowsAbout = data.skills.map(s => ({
-                                    "@type": "DefinedTerm",
-                                    "name": s.name,
-                                    "termCode": s.level || "Lv.1",
-                                    "description": `${s.currentXP || 0} / ${s.maxXP || 1000} min - ${s.description || ''}`
-                                }));
-                                schemaElem.textContent = JSON.stringify(schemaObj, null, 2);
-                            } catch(e) {}
-                        }
-                    }
-                    if (data.projects && Array.isArray(data.projects)) {
-                        USER_PROJECTS.length = 0;
-                        USER_PROJECTS.push(...data.projects);
-                    }
+                if (data && data.status === 'success') {
+                    if (data.skills) USER_SKILLS = data.skills;
+                    if (data.projects) USER_PROJECTS = data.projects;
+                    if (data.showcase) SHOWCASE_ITEMS = data.showcase;
+                    if (data.history) ADMIN_HISTORY = data.history;
 
                     renderDashboard();
-                    renderShowcase('all');
                     renderSkills('all');
+                    renderShowcase('all');
                     renderTimeline();
-                    renderAdminHistoryTable();
+                    renderAdminHistory();
+                    updateJsonLdSchema();
                     populateAdminSkillSelect();
-                    showAdminToast("已成功與 Google Apps Script API 完成資料同步！");
                 }
             } catch (err) {
-                console.log('API 連線或解析異常:', err);
-            }
-        }
-
-        // DOM Elements Selection
-        const btnAiParse = document.getElementById('btn-ai-parse');
-        const adminNoteInput = document.getElementById('admin-note-input');
-        const btnPublishSkill = document.getElementById('btn-publish-skill');
-        const adminSkillSelect = document.getElementById('admin-skill-select');
-        const adminXpInput = document.getElementById('admin-xp-input');
-        const adminSummaryInput = document.getElementById('admin-summary-input');
-        const adminHistoryTbody = document.getElementById('admin-history-tbody');
-        const adminToast = document.getElementById('admin-toast');
-        const adminToastText = document.getElementById('admin-toast-text');
-
-        function showAdminToast(msg) {
-            if (!adminToast || !adminToastText) return;
-            adminToastText.textContent = msg;
-            adminToast.classList.remove('hidden');
-            setTimeout(() => {
-                adminToast.classList.add('hidden');
-            }, 3000);
-        }
-
-        // 渲染 火力展示 (Showcase) 卡片
-        function renderShowcase(filterFormat = 'all') {
-            const container = document.getElementById('showcase-container');
-            if (!container) return;
-            container.innerHTML = '';
-
-            const items = filterFormat === 'all' 
-                ? SHOWCASE_ITEMS 
-                : SHOWCASE_ITEMS.filter(item => item.format === filterFormat);
-
-            if (items.length === 0) {
-                container.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
-                        <i class="fa-solid fa-folder-open text-3xl mb-2 block text-slate-600"></i>
-                        目前尚無作品資料，請連結 Google Apps Script API 載入或至控制台發布作品。
-                    </div>`;
-                return;
-            }
-
-            items.forEach(item => {
-                const card = document.createElement('article');
-                card.className = "glow-card rounded-xl overflow-hidden transition-all duration-300 flex flex-col justify-between group border border-web3-border hover:border-web3-amber/60";
-
-                let formatBadgeClass = "bg-web3-amber/20 text-web3-amber border-web3-amber/40";
-                let formatIcon = "fa-solid fa-rocket";
-
-                if (item.format === 'code') {
-                    formatBadgeClass = "bg-web3-cyan/20 text-web3-cyan border-web3-cyan/40";
-                    formatIcon = "fa-solid fa-code";
-                } else if (item.format === 'media') {
-                    formatBadgeClass = "bg-web3-purple/20 text-web3-purple border-web3-purple/40";
-                    formatIcon = "fa-solid fa-film";
-                } else if (item.format === 'doc') {
-                    formatBadgeClass = "bg-web3-emerald/20 text-web3-emerald border-web3-emerald/40";
-                    formatIcon = "fa-solid fa-file-contract";
-                }
-
-                card.innerHTML = `
-                    <div>
-                        <!-- Cover Image Preview -->
-                        <div class="relative h-44 overflow-hidden bg-slate-950 border-b border-web3-border">
-                            <img src="${item.image || 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop'}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-80 group-hover:opacity-100">
-                            <div class="absolute top-3 right-3">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-mono border backdrop-blur-md font-semibold flex items-center gap-1 ${formatBadgeClass}">
-                                    <i class="${formatIcon}"></i> ${item.formatLabel || 'Showcase'}
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Content Body -->
-                        <div class="p-5 space-y-3">
-                            <div class="flex items-center justify-between font-mono text-[11px] text-web3-muted">
-                                <span>${item.date || 'API DATA'}</span>
-                                <span class="text-web3-amber font-bold flex items-center gap-1"><i class="fa-solid fa-shield"></i> VERIFIED</span>
-                            </div>
-                            
-                            <h3 class="text-base font-bold text-white group-hover:text-web3-amber transition line-clamp-1">${item.title}</h3>
-                            <p class="text-xs text-slate-300 leading-relaxed font-sans line-clamp-2">${item.description}</p>
-                            
-                            <!-- Tags -->
-                            <div class="flex flex-wrap gap-1.5 pt-1 font-mono text-[10px]">
-                                ${(item.tags || []).map(t => `<span class="px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-web3-border">#${t}</span>`).join('')}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Card Footer Actions -->
-                    <div class="px-5 py-3 border-t border-web3-border/80 bg-slate-950/60 flex items-center justify-between font-mono text-xs">
-                        <button onclick="openShowcaseDetail('${item.id}')" class="text-web3-cyan hover:text-white transition flex items-center gap-1">
-                            <i class="fa-solid fa-circle-info"></i> 詳細驗證
-                        </button>
-                        <div class="flex items-center gap-2">
-                            ${item.codeUrl ? `<a href="${item.codeUrl}" target="_blank" class="p-1.5 text-slate-400 hover:text-white" title="Code Repo"><i class="fa-brands fa-github text-sm"></i></a>` : ''}
-                            ${item.demoUrl ? `<a href="${item.demoUrl}" target="_blank" class="p-1.5 text-web3-amber hover:text-amber-300" title="Live Demo"><i class="fa-solid fa-arrow-up-right-from-square text-xs"></i></a>` : ''}
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-
-        function renderShowcaseFilters() {
-            const filterContainer = document.getElementById('showcase-filters');
-            if (!filterContainer) return;
-            filterContainer.innerHTML = '';
-
-            const formats = [
-                { id: 'all', label: '🔥 全部作品' },
-                { id: 'dapp', label: '🚀 Live DApp' },
-                { id: 'code', label: '💻 智能合約 / Repo' },
-                { id: 'media', label: '🎬 影音 / 簡報' },
-                { id: 'doc', label: '📄 白皮書 / 驗證' }
-            ];
-
-            formats.forEach(f => {
-                const btn = document.createElement('button');
-                btn.className = `px-3 py-1 rounded-lg border border-web3-border transition ${f.id === 'all' ? 'bg-web3-amber text-black font-bold border-web3-amber' : 'bg-web3-card text-slate-300 hover:border-web3-amber'}`;
-                btn.textContent = f.label;
-                btn.addEventListener('click', () => {
-                    Array.from(filterContainer.children).forEach(b => {
-                        b.className = 'px-3 py-1 rounded-lg border border-web3-border bg-web3-card text-slate-300 hover:border-web3-amber transition';
-                    });
-                    btn.className = 'px-3 py-1 rounded-lg border border-web3-amber bg-web3-amber text-black font-bold transition';
-                    renderShowcase(f.id);
-                });
-                filterContainer.appendChild(btn);
-            });
-        }
-
-        // 開啟作品詳情 Modal
-        window.openShowcaseDetail = function(scId) {
-            const item = SHOWCASE_ITEMS.find(s => s.id === scId);
-            const modal = document.getElementById('showcase-detail-modal');
-            if (!item || !modal) return;
-
-            document.getElementById('sc-modal-title').textContent = item.title;
-            document.getElementById('sc-modal-img').src = item.image;
-            document.getElementById('sc-modal-format-badge').textContent = item.formatLabel;
-            document.getElementById('sc-modal-date').textContent = item.date;
-            document.getElementById('sc-modal-desc').textContent = item.description;
-
-            const tagsContainer = document.getElementById('sc-modal-tags');
-            tagsContainer.innerHTML = item.tags.map(t => `<span class="px-2 py-0.5 rounded bg-slate-950 text-web3-amber border border-web3-amber/30">#${t}</span>`).join('');
-
-            const demoLink = document.getElementById('sc-modal-demo-link');
-            const codeLink = document.getElementById('sc-modal-code-link');
-
-            if (item.demoUrl) {
-                demoLink.href = item.demoUrl;
-                demoLink.classList.remove('hidden');
-                demoLink.classList.add('inline-flex');
-            } else {
-                demoLink.classList.add('hidden');
-            }
-
-            if (item.codeUrl) {
-                codeLink.href = item.codeUrl;
-                codeLink.classList.remove('hidden');
-                codeLink.classList.add('inline-flex');
-            } else {
-                codeLink.classList.add('hidden');
-            }
-
-            modal.showModal();
-        };
-
-        const btnCloseScModal = document.getElementById('btn-close-sc-modal');
-        if (btnCloseScModal) {
-            btnCloseScModal.addEventListener('click', () => {
-                document.getElementById('showcase-detail-modal')?.close();
-            });
-        }
-
-        // 控制台 Tab 切換邏輯
-        const tabAdminNotes = document.getElementById('tab-admin-notes');
-        const tabAdminShowcase = document.getElementById('tab-admin-showcase');
-        const panelSectionNotes = document.getElementById('panel-section-notes');
-        const panelSectionShowcase = document.getElementById('panel-section-showcase');
-
-        if (tabAdminNotes && tabAdminShowcase && panelSectionNotes && panelSectionShowcase) {
-            tabAdminNotes.addEventListener('click', () => {
-                tabAdminNotes.className = 'px-4 py-2 border-b-2 border-web3-cyan text-web3-cyan font-bold flex items-center gap-1.5 transition';
-                tabAdminShowcase.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition';
-                panelSectionNotes.classList.remove('hidden');
-                panelSectionShowcase.classList.add('hidden');
-            });
-
-            tabAdminShowcase.addEventListener('click', () => {
-                tabAdminShowcase.className = 'px-4 py-2 border-b-2 border-web3-amber text-web3-amber font-bold flex items-center gap-1.5 transition';
-                tabAdminNotes.className = 'px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center gap-1.5 transition';
-                panelSectionShowcase.classList.remove('hidden');
-                panelSectionNotes.classList.add('hidden');
-            });
-        }
-
-        // 新增火力展示作品
-        const btnAddShowcase = document.getElementById('btn-add-showcase');
-        if (btnAddShowcase) {
-            btnAddShowcase.addEventListener('click', () => {
-                const title = document.getElementById('sc-input-title')?.value.trim();
-                const format = document.getElementById('sc-input-format')?.value || 'dapp';
-                const image = document.getElementById('sc-input-image')?.value.trim() || 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop';
-                const demoUrl = document.getElementById('sc-input-demo')?.value.trim();
-                const codeUrl = document.getElementById('sc-input-code')?.value.trim();
-                const desc = document.getElementById('sc-input-desc')?.value.trim();
-                const tagsRaw = document.getElementById('sc-input-tags')?.value.trim() || 'Web3, DApp';
-
-                if (!title || !desc) {
-                    showAdminToast("請至少填寫作品名稱與技術說明！");
-                    return;
-                }
-
-                const formatLabelMap = {
-                    'dapp': 'Live DApp',
-                    'code': 'Smart Contract / Repo',
-                    'media': 'Video / Pitch',
-                    'doc': 'Whitepaper / ZK Proof'
-                };
-
-                const newScItem = {
-                    id: `sc-${Date.now()}`,
-                    title: title,
-                    format: format,
-                    formatLabel: formatLabelMap[format] || 'Project Showcase',
-                    image: image,
-                    demoUrl: demoUrl,
-                    codeUrl: codeUrl,
-                    description: desc,
-                    tags: tagsRaw.split(',').map(t => t.trim()).filter(Boolean),
-                    date: '2026 NOW'
-                };
-
-                SHOWCASE_ITEMS.unshift(newScItem);
+                console.warn("無法連接至 Apps Script API 讀取雲端資料，啟動佔位模式:", err);
+                renderDashboard();
+                renderSkills('all');
                 renderShowcase('all');
-                renderShowcaseFilters();
-
-                showAdminToast(`成功將【${title}】上傳並發布至火力展示區！`);
-
-                // Sync to Google Apps Script API
-                syncToCloud('addShowcaseItem', newScItem);
-
-                // Reset inputs
-                document.getElementById('sc-input-title').value = '';
-                document.getElementById('sc-input-desc').value = '';
-            });
+                renderTimeline();
+            }
         }
 
-        // 渲染 Dashboard 統計數據
+        async function fetchSheetData() {
+            await fetchCloudData();
+        }
+
         function renderDashboard() {
-            const totalXP = USER_SKILLS.reduce((acc, curr) => acc + (curr.currentXP || 0), 0);
-            const totalXPElem = document.getElementById('dash-total-xp');
-            const skillCountElem = document.getElementById('dash-skill-count');
+            const totalXP = USER_SKILLS.reduce((sum, s) => sum + (s.currentXP || 0), 0);
+            const totalXPElem = document.getElementById('total-xp-display');
+            const rankElem = document.getElementById('rank-display');
+            const chainsCountElem = document.getElementById('chains-count-display');
 
-            if (totalXPElem) {
-                totalXPElem.textContent = `${totalXP.toLocaleString()} min`;
-            }
-            if (skillCountElem) {
-                skillCountElem.textContent = `${USER_SKILLS.length} Domains`;
+            if (totalXPElem) totalXPElem.textContent = totalXP.toLocaleString();
+            if (chainsCountElem) chainsCountElem.textContent = USER_SKILLS.length;
+
+            if (rankElem) {
+                if (totalXP > 5000) rankElem.textContent = "Rank Apex S";
+                else if (totalXP > 2000) rankElem.textContent = "Rank Alpha A";
+                else rankElem.textContent = "Rank Beta B";
             }
         }
 
-        // 渲染 Skills Cards
-        function renderSkills(filterCategory = 'all') {
+        function renderSkills(filterDomain = 'all') {
             const container = document.getElementById('skills-container');
+            const filterContainer = document.getElementById('skill-filters');
             if (!container) return;
-            container.innerHTML = '';
 
-            const filteredSkills = filterCategory === 'all' 
+            // Render Filter Buttons
+            if (filterContainer) {
+                const domains = ['all', ...new Set(USER_SKILLS.map(s => s.domain).filter(Boolean))];
+                filterContainer.innerHTML = domains.map(d => `
+                    <button data-domain="${d}" class="skill-filter-btn px-3 py-1 rounded-md text-xs font-mono transition-all ${
+                        d === filterDomain 
+                        ? 'bg-cyber-accent text-black font-bold' 
+                        : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    }">
+                        ${d === 'all' ? '全部領域' : d}
+                    </button>
+                `).join('');
+
+                // Bind Filter Clicks
+                document.querySelectorAll('.skill-filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const domain = e.target.getAttribute('data-domain');
+                        renderSkills(domain);
+                    });
+                });
+            }
+
+            const filteredSkills = filterDomain === 'all' 
                 ? USER_SKILLS 
-                : USER_SKILLS.filter(s => s.category === filterCategory);
+                : USER_SKILLS.filter(s => s.domain === filterDomain);
 
             if (filteredSkills.length === 0) {
                 container.innerHTML = `
-                    <div class="col-span-full text-center py-12 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
-                        <i class="fa-solid fa-microchip text-3xl mb-2 block text-slate-600"></i>
-                        目前尚無技能節點資料，請由 Apps Script API 讀取同步。
-                    </div>`;
+                    <div class="col-span-full border-2 border-dashed border-slate-800 rounded-xl p-8 text-center font-mono text-slate-500 text-xs">
+                        <i class="fa-solid fa-cube text-2xl mb-2 text-slate-600 block"></i>
+                        目前尚無技能節點資料，請登入控制台從 Apps Script API 寫入同步。
+                    </div>
+                `;
                 return;
             }
 
-            filteredSkills.forEach(skill => {
-                const maxXP = skill.maxXP || 1000;
-                const currentXP = skill.currentXP || 0;
-                const percentage = Math.min(100, Math.round((currentXP / maxXP) * 100));
-                
-                let iconColorClass = "text-web3-cyan";
-                let barColorClass = "bg-web3-cyan";
-
-                if (skill.accentColor === 'purple') {
-                    iconColorClass = "text-web3-purple";
-                    barColorClass = "bg-web3-purple";
-                } else if (skill.accentColor === 'emerald') {
-                    iconColorClass = "text-web3-emerald";
-                    barColorClass = "bg-web3-emerald";
-                }
-
-                const card = document.createElement('article');
-                card.className = "glow-card rounded-xl p-5 transition-all duration-200 flex flex-col justify-between space-y-4 group";
-                card.setAttribute('data-skill-id', skill.id);
-                card.setAttribute('data-agent-skill', skill.name);
-                card.setAttribute('data-level', skill.level || 'Lv.1');
-
-                card.innerHTML = `
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-10 h-10 rounded-lg bg-slate-950 border border-web3-border flex items-center justify-center ${iconColorClass} text-lg">
-                                    <i class="${skill.icon || 'fa-solid fa-code'}"></i>
-                                </div>
-                                <div>
-                                    <h3 class="font-bold text-white text-sm group-hover:text-web3-cyan transition">${skill.name}</h3>
-                                    <span class="text-[10px] font-mono text-web3-muted capitalize">${(skill.category || 'Domain').replace('-', ' ')}</span>
-                                </div>
+            container.innerHTML = filteredSkills.map(skill => {
+                const pct = Math.min(100, Math.round(((skill.currentXP || 0) / (skill.maxXP || 1000)) * 100));
+                return `
+                    <article class="cyber-card rounded-xl p-5 space-y-4 relative overflow-hidden group">
+                        <div class="flex items-start justify-between">
+                            <div class="space-y-1">
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-cyber-accent border border-slate-700">
+                                    ${skill.domain || 'General'}
+                                </span>
+                                <h3 class="text-base font-bold font-mono text-white group-hover:text-cyber-accent transition-colors">
+                                    ${skill.name}
+                                </h3>
                             </div>
-                            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-950 border border-web3-border ${iconColorClass}">
-                                ${skill.level || 'Lv.1'}
+                            <span class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30">
+                                Lv.${skill.level || 1}
                             </span>
                         </div>
 
-                        <p class="text-xs text-slate-300 leading-relaxed font-sans">${skill.description || ''}</p>
-                    </div>
+                        <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+                            ${skill.description || '鏈上技能驗證節點紀錄。'}
+                        </p>
 
-                    <!-- Progress Section -->
-                    <div class="space-y-1.5 pt-2 border-t border-web3-border/60">
-                        <div class="flex justify-between text-[10px] font-mono">
-                            <span class="text-web3-muted">PROOF-OF-TIME (min)</span>
-                            <span class="text-slate-300">${currentXP.toLocaleString()} / ${maxXP.toLocaleString()} min (${percentage}%)</span>
+                        <div class="space-y-1.5">
+                            <div class="flex justify-between text-[11px] font-mono">
+                                <span class="text-slate-400">Proof-of-Time</span>
+                                <span class="text-cyber-neon font-semibold">${skill.currentXP || 0} / ${skill.maxXP || 1000} min</span>
+                            </div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden p-0.5 border border-slate-800">
+                                <div class="bg-gradient-to-r from-cyber-accent to-cyber-neon h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+                            </div>
                         </div>
-                        <div class="w-full h-2 bg-slate-950 rounded-full p-0.5 border border-web3-border overflow-hidden">
-                            <div class="h-full ${barColorClass} rounded-full transition-all duration-500" style="width: ${percentage}%;"></div>
-                        </div>
-                    </div>
+                    </article>
                 `;
-
-                container.appendChild(card);
-            });
+            }).join('');
         }
 
-        function renderSkillFilters() {
-            const filterContainer = document.getElementById('skill-filters');
-            if (!filterContainer) return;
-            filterContainer.innerHTML = '';
+        function renderShowcase(typeFilter = 'all') {
+            const container = document.getElementById('showcase-container');
+            if (!container) return;
 
-            const categories = [
-                { id: 'all', label: '全部節點' },
-                { id: 'smart-contracts', label: '智能合約' },
-                { id: 'cryptography', label: 'ZK 密碼學' },
-                { id: 'infrastructure', label: 'P2P 基礎設施' },
-                { id: 'ai-agent', label: 'AI Agent 協定' }
-            ];
+            const filtered = typeFilter === 'all' 
+                ? SHOWCASE_ITEMS 
+                : SHOWCASE_ITEMS.filter(item => item.type === typeFilter);
 
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = `px-3 py-1 rounded-lg border border-web3-border transition ${cat.id === 'all' ? 'bg-web3-cyan text-black font-bold border-web3-cyan' : 'bg-web3-card text-slate-300 hover:border-web3-cyan'}`;
-                btn.textContent = cat.label;
-                btn.addEventListener('click', () => {
-                    Array.from(filterContainer.children).forEach(b => {
-                        b.className = 'px-3 py-1 rounded-lg border border-web3-border bg-web3-card text-slate-300 hover:border-web3-cyan transition';
-                    });
-                    btn.className = 'px-3 py-1 rounded-lg border border-web3-cyan bg-web3-cyan text-black font-bold transition';
-                    renderSkills(cat.id);
-                });
-                filterContainer.appendChild(btn);
-            });
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full border-2 border-dashed border-slate-800 rounded-xl p-8 text-center font-mono text-slate-500 text-xs">
+                        <i class="fa-solid fa-fire text-2xl mb-2 text-slate-600 block"></i>
+                        尚無火力展示作品，請使用控制台發布展示項目。
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <article class="cyber-card rounded-xl p-5 space-y-4 flex flex-col justify-between border-t-2 border-t-cyber-gold">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono">
+                            <span class="px-2 py-0.5 rounded bg-cyber-gold/20 text-cyber-gold border border-cyber-gold/30 uppercase text-[10px]">
+                                ${item.type || 'Showcase'}
+                            </span>
+                            <span class="text-slate-500"><i class="fa-regular fa-clock mr-1"></i>${item.date || '2026'}</span>
+                        </div>
+                        <h3 class="text-base font-bold font-mono text-white">${item.title}</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">${item.description}</p>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex flex-wrap gap-1.5 text-[10px] font-mono">
+                            ${(item.tags || []).map(t => `<span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300">${t}</span>`).join('')}
+                        </div>
+                        <div class="flex items-center gap-2 pt-2 border-t border-slate-800 text-xs font-mono">
+                            ${item.link ? `<a href="${item.link}" target="_blank" class="flex-1 text-center py-1.5 rounded bg-cyber-accent/10 border border-cyber-accent/30 text-cyber-accent hover:bg-cyber-accent hover:text-black transition-all">Demo <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>` : ''}
+                            ${item.github ? `<a href="${item.github}" target="_blank" class="flex-1 text-center py-1.5 rounded bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700 transition-all"><i class="fa-brands fa-github"></i> Code</a>` : ''}
+                        </div>
+                    </div>
+                </article>
+            `).join('');
         }
 
         function renderTimeline() {
             const container = document.getElementById('timeline-container');
             if (!container) return;
-            container.innerHTML = '';
 
             if (USER_PROJECTS.length === 0) {
                 container.innerHTML = `
-                    <div class="text-center py-8 text-web3-muted font-mono text-xs border border-dashed border-web3-border rounded-xl">
-                        <i class="fa-solid fa-timeline text-2xl mb-2 block text-slate-600"></i>
-                        目前尚無里程碑紀錄
-                    </div>`;
+                    <div class="text-slate-500 font-mono text-xs py-4">尚無演化軌跡紀錄。</div>
+                `;
                 return;
             }
 
-            USER_PROJECTS.forEach(proj => {
-                const item = document.createElement('article');
-                item.className = 'relative group';
-                item.innerHTML = `
-                    <div class="absolute -left-[31px] md:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-slate-950 border-2 border-web3-cyan group-hover:bg-web3-cyan transition"></div>
-                    <div class="glow-card rounded-xl p-5 space-y-2">
-                        <div class="flex flex-wrap items-center justify-between gap-2">
-                            <span class="text-xs font-mono text-web3-cyan font-bold">${proj.date}</span>
-                            <span class="text-[10px] font-mono px-2 py-0.5 bg-web3-purple/20 text-web3-purple border border-web3-purple/30 rounded">${proj.tag || 'Project'}</span>
+            container.innerHTML = USER_PROJECTS.map(item => `
+                <article class="relative group">
+                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-cyber-accent border-2 border-cyber-bg group-hover:scale-125 transition-transform"></div>
+                    <div class="cyber-card rounded-xl p-4 space-y-2">
+                        <div class="flex items-center justify-between text-xs font-mono">
+                            <time class="text-cyber-accent font-bold">${item.date}</time>
+                            <span class="text-slate-500 text-[10px]">${item.category || 'MILESTONE'}</span>
                         </div>
-                        <h3 class="text-base font-bold text-white group-hover:text-web3-cyan transition">${proj.title}</h3>
-                        <p class="text-xs text-slate-300 leading-relaxed font-sans">${proj.description}</p>
+                        <h4 class="text-sm font-bold font-mono text-white">${item.title}</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">${item.description}</p>
                     </div>
-                `;
-                container.appendChild(item);
-            });
+                </article>
+            `).join('');
+        }
+
+        function renderAdminHistory() {
+            const tbody = document.getElementById('admin-history-tbody');
+            if (!tbody) return;
+
+            if (ADMIN_HISTORY.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">尚無異動紀錄</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = ADMIN_HISTORY.map(row => `
+                <tr class="hover:bg-slate-900/60 transition-colors">
+                    <td class="p-2.5 text-slate-400">${row.time || ''}</td>
+                    <td class="p-2.5 font-bold text-cyber-accent">${row.skill || ''}</td>
+                    <td class="p-2.5 text-slate-200">${row.summary || ''}</td>
+                    <td class="p-2.5 text-cyber-neon">+${row.xp || 0} min</td>
+                    <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800">已簽署</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function updateJsonLdSchema() {
+            const schemaElem = document.getElementById('schema-json-ld');
+            if (!schemaElem) return;
+
+            const schemaData = {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Jurash",
+                "jobTitle": "Decentralized Architect & Web3 AI Agent System Engineer",
+                "knowsAbout": USER_SKILLS.map(s => `${s.name} (Lv.${s.level})`),
+                "hasCredential": USER_SKILLS.map(s => ({
+                    "@type": "EducationalOccupationalCredential",
+                    "credentialCategory": "On-Chain Skill Node",
+                    "name": s.name,
+                    "competencyRequired": `${s.currentXP} minutes`
+                }))
+            };
+
+            schemaElem.textContent = JSON.stringify(schemaData, null, 2);
         }
 
         function populateAdminSkillSelect() {
+            const adminSkillSelect = document.getElementById('admin-skill-select');
             if (!adminSkillSelect) return;
+
             adminSkillSelect.innerHTML = '';
             if (USER_SKILLS.length === 0) {
                 const opt = document.createElement('option');
                 opt.value = 'general-dev';
-                opt.textContent = '系統與網頁開發 (Lv.1)';
+                opt.textContent = '系統與網頁開發';
                 adminSkillSelect.appendChild(opt);
                 return;
             }
+
             USER_SKILLS.forEach(skill => {
                 const opt = document.createElement('option');
-                opt.value = skill.id;
-                opt.textContent = `${skill.name} (${skill.level})`;
+                opt.value = skill.id || skill.name;
+                opt.textContent = `${skill.name} (Lv.${skill.level || 1})`;
                 adminSkillSelect.appendChild(opt);
             });
         }
 
-        // 自動設置執行時間起迄為當下時間 (當前年月日時分)
         function setDefaultAdminTimes() {
             const startInput = document.getElementById('admin-time-start');
             const endInput = document.getElementById('admin-time-end');
@@ -1275,13 +846,274 @@
                 return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
             };
 
-            // 預設結束時間為當前時間，開始時間預設為 2 小時前
             const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
             if (!endInput.value) endInput.value = formatForInput(now);
             if (!startInput.value) startInput.value = formatForInput(twoHoursAgo);
         }
 
-        // 為 AI 數據解析按鈕綁定點擊事件 (採用事件委派，確保動態與靜態皆可 100% 觸發)
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Initial fetch
+            fetchCloudData();
+
+            // Modal Open Triggers
+            const btnOpenLogin = document.getElementById('btn-open-login');
+            const adminLoginModal = document.getElementById('admin-login-modal');
+            const adminPanelModal = document.getElementById('admin-panel-modal');
+
+            btnOpenLogin?.addEventListener('click', () => {
+                if (isLoggedIn) {
+                    populateAdminSkillSelect();
+                    setDefaultAdminTimes();
+                    adminPanelModal?.showModal();
+                } else {
+                    adminLoginModal?.showModal();
+                }
+            });
+
+            // Login Form Handler
+            const loginForm = document.getElementById('login-form');
+            const loginErrorMsg = document.getElementById('login-error-msg');
+
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const user = document.getElementById('login-username')?.value.trim();
+                    const pwd = document.getElementById('login-password')?.value;
+
+                    try {
+                        const response = await fetch(API_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain' },
+                            body: JSON.stringify({
+                                action: 'login',
+                                username: user,
+                                password: pwd
+                            })
+                        });
+                        const res = await response.json();
+
+                        if (res.status === 'success') {
+                            isLoggedIn = true;
+                            adminLoginModal?.close();
+                            populateAdminSkillSelect();
+                            setDefaultAdminTimes();
+                            fetchSheetData();
+                            adminPanelModal?.showModal();
+                            if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+                            showAdminToast("身分驗證成功，已開啟控制台");
+                        } else {
+                            if (loginErrorMsg) {
+                                loginErrorMsg.textContent = res.message || "驗證失敗，帳號或密碼錯誤";
+                                loginErrorMsg.classList.remove('hidden');
+                            }
+                        }
+                    } catch (err) {
+                        console.error("登入驗證異常:", err);
+                        if (loginErrorMsg) {
+                            loginErrorMsg.textContent = "無法連線至驗證伺服器，請檢查網路或 API 設定";
+                            loginErrorMsg.classList.remove('hidden');
+                        }
+                    }
+                });
+            }
+
+            // Raw Schema Viewer
+            const btnOpenSchema = document.getElementById('btn-open-schema-view');
+            const schemaModal = document.getElementById('schema-modal');
+            const schemaRawContent = document.getElementById('schema-raw-content');
+
+            btnOpenSchema?.addEventListener('click', () => {
+                const schemaElem = document.getElementById('schema-json-ld');
+                if (schemaRawContent && schemaElem) {
+                    schemaRawContent.textContent = schemaElem.textContent;
+                }
+                schemaModal?.showModal();
+            });
+
+            document.getElementById('btn-copy-schema')?.addEventListener('click', () => {
+                const text = schemaRawContent?.textContent;
+                if (text) {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showAdminToast("Schema (JSON-LD) 已複製至剪貼簿");
+                }
+            });
+
+            // Floating AI Chat Bot Toggle
+            const aiBotBtn = document.getElementById('ai-bot-btn');
+            const aiBotModal = document.getElementById('ai-bot-modal');
+            const btnCloseAiBot = document.getElementById('btn-close-ai-bot');
+
+            aiBotBtn?.addEventListener('click', () => {
+                aiBotModal?.classList.toggle('hidden');
+            });
+            btnCloseAiBot?.addEventListener('click', () => {
+                aiBotModal?.classList.add('hidden');
+            });
+
+            // AI Chat Send Simulation
+            const aiChatSend = document.getElementById('ai-chat-send');
+            const aiChatInput = document.getElementById('ai-chat-input');
+            const aiChatMessages = document.getElementById('ai-chat-messages');
+
+            const handleAiSend = () => {
+                const val = aiChatInput?.value.trim();
+                if (!val) return;
+
+                // User message
+                const userMsg = document.createElement('div');
+                userMsg.className = "bg-cyber-accent/10 border border-cyber-accent/30 p-2.5 rounded-xl text-cyber-accent text-right font-mono ml-8";
+                userMsg.textContent = val;
+                aiChatMessages?.appendChild(userMsg);
+
+                if (aiChatInput) aiChatInput.value = '';
+
+                // Bot response mock
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = "bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-slate-200 font-mono mr-8";
+                    botMsg.innerHTML = `🤖 <b>Agent Response:</b> 針對 "${val}"，Jurash 目前累積 Proof-of-Time 分鐘數為 ${USER_SKILLS.reduce((a,b)=>a+(b.currentXP||0),0)} min，擁有 ${USER_SKILLS.length} 個認證技能節點。`;
+                    aiChatMessages?.appendChild(botMsg);
+                    aiChatMessages.scrollTop = aiChatMessages.scrollHeight;
+                }, 600);
+            };
+
+            aiChatSend?.addEventListener('click', handleAiSend);
+            aiChatInput?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') handleAiSend();
+            });
+
+            // Admin Console Tabs
+            const tabNotes = document.getElementById('tab-btn-notes');
+            const tabShowcase = document.getElementById('tab-btn-showcase');
+            const adminTabNotes = document.getElementById('admin-tab-notes');
+            const adminTabShowcase = document.getElementById('admin-tab-showcase');
+
+            tabNotes?.addEventListener('click', () => {
+                tabNotes.className = "px-4 py-2 border-b-2 border-cyber-accent text-cyber-accent font-bold";
+                tabShowcase.className = "px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+                adminTabNotes?.classList.remove('hidden');
+                adminTabShowcase?.classList.add('hidden');
+            });
+
+            tabShowcase?.addEventListener('click', () => {
+                tabShowcase.className = "px-4 py-2 border-b-2 border-cyber-gold text-cyber-gold font-bold";
+                tabNotes.className = "px-4 py-2 border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+                adminTabShowcase?.classList.remove('hidden');
+                adminTabNotes?.classList.add('hidden');
+            });
+
+            // Publish Skill Logic
+            const btnPublishSkill = document.getElementById('btn-publish-skill');
+            btnPublishSkill?.addEventListener('click', async () => {
+                const skillSelect = document.getElementById('admin-skill-select');
+                const xpInput = document.getElementById('admin-xp');
+                const summaryInput = document.getElementById('admin-summary');
+                const noteInput = document.getElementById('admin-note');
+                const startTimeInput = document.getElementById('admin-time-start');
+                const endTimeInput = document.getElementById('admin-time-end');
+
+                const selectedSkill = skillSelect?.value || 'general-dev';
+                const xpGained = parseInt(xpInput?.value || '60') || 60;
+                const summary = summaryInput?.value.trim() || '簽署技能節點異動';
+                const note = noteInput?.value.trim() || '';
+
+                btnPublishSkill.disabled = true;
+                btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify({
+                            action: 'publishSkill',
+                            skillId: selectedSkill,
+                            xp: xpGained,
+                            summary: summary,
+                            note: note,
+                            startTime: startTimeInput?.value,
+                            endTime: endTimeInput?.value
+                        })
+                    });
+
+                    showAdminToast(`已成功簽署發布！+${xpGained} min 至技能樹`);
+                    if (noteInput) noteInput.value = '';
+                    fetchCloudData();
+
+                } catch (err) {
+                    console.error("發布失敗:", err);
+                    showAdminToast("已進行本地同步，請確認 Google Apps Script 設定", true);
+                } finally {
+                    btnPublishSkill.disabled = false;
+                    btnPublishSkill.innerHTML = '<i class="fa-solid fa-file-signature"></i> 簽署並發布至 Skill Chain (試算表)';
+                }
+            });
+
+            // Publish Showcase Logic
+            const btnPublishShowcase = document.getElementById('btn-publish-showcase');
+            btnPublishShowcase?.addEventListener('click', async () => {
+                const title = document.getElementById('admin-showcase-title')?.value.trim();
+                const type = document.getElementById('admin-showcase-type')?.value;
+                const link = document.getElementById('admin-showcase-link')?.value.trim();
+                const github = document.getElementById('admin-showcase-github')?.value.trim();
+                const desc = document.getElementById('admin-showcase-desc')?.value.trim();
+                const tagsRaw = document.getElementById('admin-showcase-tags')?.value.trim();
+
+                if (!title) {
+                    showAdminToast("請輸入作品名稱！", true);
+                    return;
+                }
+
+                btnPublishShowcase.disabled = true;
+                btnPublishShowcase.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在發布作品...';
+
+                try {
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify({
+                            action: 'publishShowcase',
+                            item: {
+                                title,
+                                type,
+                                link,
+                                github,
+                                description: desc,
+                                tags: tagsRaw ? tagsRaw.split(',').map(t => t.trim()) : [],
+                                date: new Date().toISOString().slice(0, 10)
+                            }
+                        })
+                    });
+
+                    showAdminToast("火力展示作品發布成功！");
+                    fetchCloudData();
+                } catch (err) {
+                    showAdminToast("作品已同步至本地視圖", false);
+                } finally {
+                    btnPublishShowcase.disabled = false;
+                    btnPublishShowcase.innerHTML = '<i class="fa-solid fa-fire"></i> 發布火力展示作品';
+                }
+            });
+
+            // Showcase Filter buttons
+            document.querySelectorAll('.showcase-filter-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const type = e.target.getAttribute('data-type');
+                    document.querySelectorAll('.showcase-filter-btn').forEach(b => {
+                        b.className = "showcase-filter-btn px-3 py-1 rounded-md bg-slate-800 text-slate-300 hover:text-white";
+                    });
+                    e.target.className = "showcase-filter-btn px-3 py-1 rounded-md bg-cyber-gold text-black font-semibold";
+                    renderShowcase(type);
+                });
+            });
+
+        });
+
         document.addEventListener('click', async (e) => {
             const targetBtn = e.target.closest('#btn-ai-parse');
             if (!targetBtn) return;
@@ -1300,7 +1132,7 @@
             const endTimeVal = endTimeElem?.value;
 
             if (!text && !startTimeVal && !endTimeVal) {
-                showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！");
+                showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！", true);
                 return;
             }
 
@@ -1322,7 +1154,7 @@
                     xpElem.value = calculatedMinutes;
                 }
 
-                // 2. 嘗試向 Google Apps Script API 發送請求 (透過後端 Gemini API 解析)
+                // 2. 向 Google Apps Script 發送 Gemini AI 語意解析請求
                 let aiSuccess = false;
                 if (typeof API_URL !== 'undefined' && API_URL) {
                     try {
@@ -1349,13 +1181,12 @@
                     }
                 }
 
-                // 3. 本地備援/降級解析 (若 API 失敗或無回應時確保按鈕必定有反應)
+                // 3. 本地降級解析備援
                 if (!aiSuccess) {
                     if (text && summaryElem) {
                         summaryElem.value = text.length > 35 ? text.substring(0, 35) + '...' : text;
                     }
 
-                    // 智慧比對技能選單
                     if (skillSelectElem && USER_SKILLS && USER_SKILLS.length > 0) {
                         const lowerText = text.toLowerCase();
                         let matched = USER_SKILLS[0];
@@ -1366,7 +1197,7 @@
                                 break;
                             }
                         }
-                        if (matched) skillSelectElem.value = matched.id;
+                        if (matched) skillSelectElem.value = matched.id || matched.name;
                     }
                 }
 
@@ -1380,477 +1211,6 @@
                 targetBtn.disabled = false;
                 targetBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
             }
-        });
-
-        if (btnPublishSkill) {
-            btnPublishSkill.addEventListener('click', async () => {
-                const selectedSkillId = adminSkillSelect?.value;
-                const gainedXP = parseInt(adminXpInput?.value || '60') || 60;
-                const summary = adminSummaryInput?.value.trim() || "簽署技能節點驗證異動";
-                const noteText = adminNoteInput?.value.trim() || "";
-                const startTimeVal = document.getElementById('admin-time-start')?.value || "";
-                const endTimeVal = document.getElementById('admin-time-end')?.value || "";
-
-                let skillObj = USER_SKILLS.find(s => s.id === selectedSkillId);
-                if (!skillObj) {
-                    const selectedText = adminSkillSelect?.options[adminSkillSelect?.selectedIndex]?.text || "綜合技能";
-                    skillObj = {
-                        id: selectedSkillId || 'general-dev',
-                        name: selectedText,
-                        currentXP: 0,
-                        maxXP: 1000
-                    };
-                }
-
-                // 按鈕鎖定並顯示寫入狀態
-                btnPublishSkill.disabled = true;
-                btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
-
-        // 自動設置執行時間起迄為當下時間 (當前年月日時分)
-        function setDefaultAdminTimes() {
-            const startInput = document.getElementById('admin-time-start');
-            const endInput = document.getElementById('admin-time-end');
-            if (!startInput || !endInput) return;
-
-            const now = new Date();
-            const formatForInput = (d) => {
-                const pad = (n) => String(n).padStart(2, '0');
-                return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-            };
-
-            // 預設結束時間為當前時間，開始時間預設為 2 小時前
-            const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
-            endInput.value = formatForInput(now);
-            startInput.value = formatForInput(twoHoursAgo);
-        }
-
-        if (btnAiParse) {
-            btnAiParse.addEventListener('click', async () => {
-                const text = adminNoteInput?.value.trim() || '';
-                const startTimeVal = document.getElementById('admin-time-start')?.value;
-                const endTimeVal = document.getElementById('admin-time-end')?.value;
-
-                if (!text && !startTimeVal && !endTimeVal) {
-                    showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！");
-                    return;
-                }
-
-                btnAiParse.disabled = true;
-                btnAiParse.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Gemini 3.1 AI 語義分析中...';
-
-                // 計算執行時間起迄 (分鐘)
-                let calculatedMinutes = 0;
-                if (startTimeVal && endTimeVal) {
-                    const start = new Date(startTimeVal);
-                    const end = new Date(endTimeVal);
-                    if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
-                        calculatedMinutes = Math.round((end - start) / (1000 * 60));
-                    }
-                }
-
-                try {
-                    // 呼叫 Gemini 3.1 Flash API 進行真實語語解析
-                    const apiKey = "";
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-                    const availableSkills = USER_SKILLS.map(s => `ID: "${s.id}", Name: "${s.name}", Description: "${s.description}"`).join("\n");
-
-                    const systemPrompt = `You are a specialized Web3 & Decentralized Cybernetic Node AI Assistant. Your task is to analyze developer deployment notes/study logs and categorize them into the best matching skill domain from the provided list, extract a concise summary, and estimate/confirm duration in minutes.
-
-Available Skill Domains:
-${availableSkills}
-
-Output MUST be valid JSON matching this schema:
-{
-  "matchedSkillId": "string (must strictly be one of the skill IDs above)",
-  "refinedSummary": "string (a professional 1-sentence summary in Traditional Chinese)",
-  "suggestedMinutes": number (estimated execution duration in minutes if not provided, default 120)
-}`;
-
-                    const userPrompt = `Deployment/Study Note: "${text}"
-${calculatedMinutes > 0 ? `Calculated duration: ${calculatedMinutes} minutes.` : 'Duration not specified, please estimate standard learning/development time.'}`;
-
-                    const payload = {
-                        contents: [{ parts: [{ text: userPrompt }] }],
-                        systemInstruction: { parts: [{ text: systemPrompt }] },
-                        generationConfig: {
-                            responseMimeType: "application/json"
-                        }
-                    };
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Gemini API HTTP Error: ${response.status}`);
-                    }
-
-                    const result = await response.json();
-                    const jsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                    if (!jsonText) throw new Error("Received empty response from Gemini API");
-
-                    const parsedData = JSON.parse(jsonText);
-
-                    // 套用 AI 解析結果
-                    if (parsedData.matchedSkillId && USER_SKILLS.some(s => s.id === parsedData.matchedSkillId)) {
-                        if (adminSkillSelect) adminSkillSelect.value = parsedData.matchedSkillId;
-                    }
-
-                    if (calculatedMinutes > 0) {
-                        if (adminXpInput) adminXpInput.value = calculatedMinutes;
-                    } else if (parsedData.suggestedMinutes) {
-                        if (adminXpInput) adminXpInput.value = parsedData.suggestedMinutes;
-                    }
-
-                    if (parsedData.refinedSummary && adminSummaryInput) {
-                        adminSummaryInput.value = parsedData.refinedSummary;
-                    }
-
-                    const matchedSkillObj = USER_SKILLS.find(s => s.id === (parsedData.matchedSkillId || adminSkillSelect?.value));
-                    const timeMsg = calculatedMinutes > 0 ? `（算得 ${calculatedMinutes} 分鐘）` : `（AI 估算 ${parsedData.suggestedMinutes || 120} 分鐘）`;
-                    showAdminToast(`Gemini 語義解析成功！自動連結至【${matchedSkillObj?.name || '節點'}】${timeMsg}`);
-
-                } catch (err) {
-                    console.warn("Gemini API 連線失敗，啟動本地關鍵字備援解析:", err);
-                    
-                    // 本地備援語意判斷
-                    const lowerText = text.toLowerCase();
-                    let matchedSkill = USER_SKILLS[0];
-
-                    if (lowerText.includes('zk') || lowerText.includes('circom') || lowerText.includes('snark') || lowerText.includes('隱私')) {
-                        matchedSkill = USER_SKILLS.find(s => s.id === 'zk-proofs') || USER_SKILLS[1];
-                    } else if (lowerText.includes('solidity') || lowerText.includes('智能合約') || lowerText.includes('erc') || lowerText.includes('gas')) {
-                        matchedSkill = USER_SKILLS.find(s => s.id === 'solidity-sc') || USER_SKILLS[0];
-                    } else if (lowerText.includes('agent') || lowerText.includes('鏈上') || lowerText.includes('權限')) {
-                        matchedSkill = USER_SKILLS.find(s => s.id === 'agent-protocol') || USER_SKILLS[4];
-                    } else if (lowerText.includes('rust') || lowerText.includes('rpc') || lowerText.includes('節點')) {
-                        matchedSkill = USER_SKILLS.find(s => s.id === 'rust-go-nodes') || USER_SKILLS[3];
-                    }
-
-                    if (adminSkillSelect) adminSkillSelect.value = matchedSkill.id;
-                    if (calculatedMinutes > 0) {
-                        if (adminXpInput) adminXpInput.value = calculatedMinutes;
-                    }
-                    if (adminSummaryInput) {
-                        adminSummaryInput.value = text.length > 35 ? text.substring(0, 35) + '...' : (text || '自動提煉鏈上備忘紀錄');
-                    }
-
-                    showAdminToast(`AI 本地解析完成！自動連結至【${matchedSkill.name}】`);
-                } finally {
-                    btnAiParse.disabled = false;
-                    btnAiParse.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
-                }
-            });
-        }
-
-        if (btnPublishSkill) {
-            btnPublishSkill.addEventListener('click', async () => {
-                const selectedSkillId = adminSkillSelect?.value;
-                const gainedXP = parseInt(adminXpInput?.value || '60') || 60;
-                const summary = adminSummaryInput?.value.trim() || "簽署技能節點驗證異動";
-                const noteText = adminNoteInput?.value.trim() || "";
-                const startTimeVal = document.getElementById('admin-time-start')?.value || "";
-                const endTimeVal = document.getElementById('admin-time-end')?.value || "";
-
-                const skillObj = USER_SKILLS.find(s => s.id === selectedSkillId);
-                if (!skillObj) {
-                    showAdminToast("請選擇有效的技能節點！");
-                    return;
-                }
-
-                // 按鈕鎖定並顯示寫入狀態
-                btnPublishSkill.disabled = true;
-                btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
-
-                const today = new Date().toISOString().split('T')[0];
-                const newRecord = {
-                    id: `h-${Date.now()}`,
-                    date: today,
-                    startTime: startTimeVal,
-                    endTime: endTimeVal,
-                    skillId: skillObj.id,
-                    skillName: skillObj.name,
-                    summary: summary,
-                    noteText: noteText,
-                    xpGained: gainedXP,
-                    status: 'Published'
-                };
-
-                try {
-                    // 發送 POST 請求真實寫入 Google Apps Script (Google 試算表)
-                    const result = await syncToCloud('publishSkillNote', {
-                        record: newRecord,
-                        updatedSkill: {
-                            id: skillObj.id,
-                            name: skillObj.name,
-                            currentXP: Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP)
-                        }
-                    });
-
-                    // 更新本地 state 與 UI 數據
-                    skillObj.currentXP = Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP);
-                    ADMIN_HISTORY.unshift(newRecord);
-                    if (ADMIN_HISTORY.length > 5) ADMIN_HISTORY.pop();
-
-                    renderDashboard();
-                    renderSkills('all');
-                    renderAdminHistoryTable();
-
-                    showAdminToast(`成功增加 +${gainedXP} min 並真實寫入 Google 試算表！`);
-
-                    // 清空隨筆輸入欄位
-                    if (adminNoteInput) adminNoteInput.value = '';
-                } catch (err) {
-                    console.error("寫入 Google 試算表失敗:", err);
-                    
-                    // 備援：仍然更新本地介面
-                    skillObj.currentXP = Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP);
-                    ADMIN_HISTORY.unshift(newRecord);
-                    if (ADMIN_HISTORY.length > 5) ADMIN_HISTORY.pop();
-
-                    renderDashboard();
-                    renderSkills('all');
-                    renderAdminHistoryTable();
-
-                    showAdminToast(`已於本地更新 +${gainedXP} min（試算表連線異常，請檢查 API）`);
-                } finally {
-                    btnPublishSkill.disabled = false;
-                    btnPublishSkill.innerHTML = '<i class="fa-solid fa-signature"></i> 簽署並發布至 Skill Chain';
-                }
-            });
-        }
-
-        function renderAdminHistoryTable() {
-            if (!adminHistoryTbody) return;
-            adminHistoryTbody.innerHTML = '';
-
-            if (ADMIN_HISTORY.length === 0) {
-                adminHistoryTbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-web3-muted font-mono text-xs">尚無簽署異動紀錄（同步自 Apps Script API）</td></tr>`;
-                return;
-            }
-
-            ADMIN_HISTORY.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = 'hover:bg-slate-900/60 transition';
-
-                const isPublished = item.status === 'Published';
-                const statusBadgeClass = isPublished 
-                    ? 'bg-web3-emerald/20 text-web3-emerald border-web3-emerald/40' 
-                    : 'bg-web3-amber/20 text-amber-300 border-web3-amber/40';
-
-                tr.innerHTML = `
-                    <td class="py-2.5 px-2 text-web3-cyan font-mono text-[11px] whitespace-nowrap">${item.date}</td>
-                    <td class="py-2.5 px-2 font-mono text-[11px] text-white">${item.skillName}</td>
-                    <td class="py-2.5 px-2 text-slate-300 max-w-[200px] truncate" title="${item.summary}">${item.summary}</td>
-                    <td class="py-2.5 px-2 font-mono text-[11px] text-web3-emerald">+${item.xpGained} min</td>
-                    <td class="py-2.5 px-2 text-center">
-                        <button onclick="toggleHistoryStatus('${item.id}')" class="px-2 py-0.5 border rounded text-[10px] font-mono transition ${statusBadgeClass}">
-                            ${isPublished ? '● Minted' : '○ Pending'}
-                        </button>
-                    </td>
-                `;
-
-                adminHistoryTbody.appendChild(tr);
-            });
-        }
-
-        window.toggleHistoryStatus = function(historyId) {
-            const item = ADMIN_HISTORY.find(h => h.id === historyId);
-            if (item) {
-                item.status = item.status === 'Published' ? 'Draft' : 'Published';
-                renderAdminHistoryTable();
-                showAdminToast(`已切換鏈上紀錄狀態為：${item.status === 'Published' ? 'Minted (已發布)' : 'Pending (草稿)'}`);
-            }
-        };
-
-        // Modals & Chat Events
-        const btnAdminConsole = document.getElementById('btn-admin-console');
-        const adminLoginModal = document.getElementById('admin-login-modal');
-        const btnCloseLoginModal = document.getElementById('btn-close-login-modal');
-        const loginForm = document.getElementById('login-form');
-        const loginErrorMsg = document.getElementById('login-error-msg');
-
-        const adminPanelModal = document.getElementById('admin-panel-modal');
-        const btnCloseAdminModal = document.getElementById('btn-close-admin-modal');
-        const btnAdminLogout = document.getElementById('btn-admin-logout');
-
-        const btnInspectSchema = document.getElementById('btn-inspect-schema');
-        const schemaModal = document.getElementById('schema-modal');
-        const btnCloseModal = document.getElementById('btn-close-modal');
-        const btnCopySchema = document.getElementById('btn-copy-schema');
-        const schemaPreviewCode = document.getElementById('schema-preview-code');
-
-        let isLoggedIn = false;
-
-        if (btnAdminConsole) {
-            btnAdminConsole.addEventListener('click', () => {
-                if (isLoggedIn) {
-                    populateAdminSkillSelect();
-                    renderAdminHistoryTable();
-                    setDefaultAdminTimes();
-                    adminPanelModal?.showModal();
-                } else {
-                    adminLoginModal?.showModal();
-                }
-            });
-        }
-
-        if (btnCloseLoginModal) {
-            btnCloseLoginModal.addEventListener('click', () => adminLoginModal?.close());
-        }
-
-        // 試算表資料拉取相容映射
-        const fetchSheetData = typeof fetchCloudData === 'function' ? fetchCloudData : () => {};
-
-        if (loginForm) {
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const user = document.getElementById('login-username')?.value.trim();
-                const pwd = document.getElementById('login-password')?.value;
-
-                try {
-                    const response = await fetch(API_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: 'login',
-                            username: user,
-                            password: pwd
-                        })
-                    });
-                    const res = await response.json();
-
-                    if (res.status === 'success') {
-                        isLoggedIn = true;
-                        adminLoginModal?.close();
-                        populateAdminSkillSelect();
-                        setDefaultAdminTimes();
-                        fetchSheetData();
-                        adminPanelModal?.showModal();
-                        if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
-                        showAdminToast("身分驗證成功，已開啟控制台");
-                    } else {
-                        if (loginErrorMsg) {
-                            loginErrorMsg.textContent = res.message || "驗證失敗，帳號或密碼錯誤";
-                            loginErrorMsg.classList.remove('hidden');
-                        }
-                    }
-                } catch (err) {
-                    console.error(err);
-                }
-            });
-        }
-
-        if (btnCloseAdminModal) {
-            btnCloseAdminModal.addEventListener('click', () => adminPanelModal?.close());
-        }
-
-        if (btnAdminLogout) {
-            btnAdminLogout.addEventListener('click', () => {
-                isLoggedIn = false;
-                adminPanelModal?.close();
-            });
-        }
-
-        if (btnInspectSchema) {
-            btnInspectSchema.addEventListener('click', () => {
-                const schemaElem = document.getElementById('agent-schema');
-                if (schemaElem && schemaPreviewCode) {
-                    schemaPreviewCode.textContent = JSON.stringify(JSON.parse(schemaElem.textContent), null, 2);
-                }
-                schemaModal?.showModal();
-            });
-        }
-
-        if (btnCloseModal) {
-            btnCloseModal.addEventListener('click', () => schemaModal?.close());
-        }
-
-        if (btnCopySchema) {
-            btnCopySchema.addEventListener('click', () => {
-                if (schemaPreviewCode) {
-                    navigator.clipboard.writeText(schemaPreviewCode.textContent).then(() => {
-                        btnCopySchema.innerHTML = '<i class="fa-solid fa-check mr-1"></i> 已複製至剪貼簿';
-                        setTimeout(() => {
-                            btnCopySchema.innerHTML = '<i class="fa-regular fa-copy mr-1"></i> 複製 Schema 資料';
-                        }, 2000);
-                    });
-                }
-            });
-        }
-
-        // AI Chat Bot
-        const aiChatToggle = document.getElementById('ai-chat-toggle');
-        const aiChatBox = document.getElementById('ai-chat-box');
-        const aiChatClose = document.getElementById('ai-chat-close');
-        const chatForm = document.getElementById('chat-form');
-        const chatInput = document.getElementById('chat-input');
-        const chatMessages = document.getElementById('chat-messages');
-
-        if (aiChatToggle && aiChatBox) {
-            aiChatToggle.addEventListener('click', () => aiChatBox.classList.toggle('hidden'));
-        }
-
-        if (aiChatClose && aiChatBox) {
-            aiChatClose.addEventListener('click', () => aiChatBox.classList.add('hidden'));
-        }
-
-        if (chatForm && chatInput && chatMessages) {
-            chatForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const text = chatInput.value.trim();
-                if (!text) return;
-
-                const userMsg = document.createElement('div');
-                userMsg.className = 'bg-web3-cyan/20 border border-web3-cyan/40 p-3 rounded-xl text-web3-cyan ml-auto max-w-[88%] leading-relaxed';
-                userMsg.textContent = text;
-                chatMessages.appendChild(userMsg);
-
-                chatInput.value = '';
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                setTimeout(() => {
-                    const botMsg = document.createElement('div');
-                    botMsg.className = 'bg-slate-900 border border-web3-border p-3 rounded-xl text-slate-300 max-w-[88%] leading-relaxed font-sans';
-                    
-                    const lower = text.toLowerCase();
-                    if (lower.includes('solidity') || lower.includes('合約')) {
-                        botMsg.textContent = '⚡ Jurash 在 Solidity 領域具備 Lv.4 專長，已累積 14,200 min 鏈上寫入與開發紀錄，擅長 DeFi 重構與 Gas Fee 優化。';
-                    } else if (lower.includes('專案') || lower.includes('最新') || lower.includes('火力')) {
-                        botMsg.textContent = '🔥 Jurash 最新作品包含 AegisZK-Shield 零知識隱私協定與 ERC-4337 帳戶抽象 Paymaster 引擎，可在「火力展示區」檢視 Live Demo 與 Code！';
-                    } else if (lower.includes('schema') || lower.includes('agent')) {
-                        botMsg.textContent = '🧬 本站嵌入標準 JSON-LD (Schema.org) Protocol，支援 LLM Agent 直接抓取能力節點與驗證等級。';
-                    } else {
-                        botMsg.textContent = `🤖 收到問題：「${text}」。Jurash AI Agent 正在去中心化節點搜尋解答，歡迎點擊上方 Schema 按鈕檢視更多能力細節！`;
-                    }
-                    
-                    chatMessages.appendChild(botMsg);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 600);
-            });
-        }
-
-        document.querySelectorAll('.chat-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                if (chatInput) {
-                    chatInput.value = chip.textContent.trim().replace(/^[^a-zA-Z0-9\u4e00-\u9fa5]+/, '');
-                    chatForm?.dispatchEvent(new Event('submit'));
-                }
-            });
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderDashboard();
-            renderShowcaseFilters();
-            renderShowcase('all');
-            renderSkillFilters();
-            renderSkills('all');
-            renderTimeline();
-            setDefaultAdminTimes();
-            fetchCloudData();
         });
     </script>
 </body>
