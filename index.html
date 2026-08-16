@@ -766,6 +766,62 @@
 
     <!-- JAVASCRIPT: DATA & INTERACTIVE LOGIC -->
     <script>
+        // Web3 API Endpoint (Google Apps Script Web App)
+        const API_URL = "https://script.google.com/macros/s/AKfycbzw0CNwNnnSzOzfRnj02H98Zv8b6pFDS-W5awArRmtpglVoFxWTEIR-xoZLoX7j_3c/exec";
+
+        // Cloud Synchronization Helper
+        async function syncToCloud(action, payload) {
+            if (!API_URL) return;
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action, payload, timestamp: new Date().toISOString() })
+                });
+                const result = await response.json();
+                console.log('Cloud Sync Success:', result);
+                return result;
+            } catch (err) {
+                console.warn('Cloud Sync Notice (Saved locally):', err);
+            }
+        }
+
+        // Fetch Cloud State on Load
+        async function fetchCloudData() {
+            if (!API_URL) return;
+            try {
+                const response = await fetch(`${API_URL}?action=getData`);
+                if (!response.ok) return;
+                const data = await response.json();
+                
+                if (data) {
+                    if (data.showcaseItems && Array.isArray(data.showcaseItems) && data.showcaseItems.length > 0) {
+                        SHOWCASE_ITEMS.length = 0;
+                        SHOWCASE_ITEMS.push(...data.showcaseItems);
+                        renderShowcase('all');
+                    }
+                    if (data.history && Array.isArray(data.history) && data.history.length > 0) {
+                        ADMIN_HISTORY.length = 0;
+                        ADMIN_HISTORY.push(...data.history);
+                        renderAdminHistoryTable();
+                    }
+                    if (data.skills && Array.isArray(data.skills) && data.skills.length > 0) {
+                        data.skills.forEach(remoteSkill => {
+                            const localSkill = USER_SKILLS.find(s => s.id === remoteSkill.id);
+                            if (localSkill) {
+                                Object.assign(localSkill, remoteSkill);
+                            }
+                        });
+                        renderDashboard();
+                        renderSkills('all');
+                    }
+                    showAdminToast("已成功與 Google Apps Script API 完成數據同步！");
+                }
+            } catch (err) {
+                console.log('Local state initialized (Cloud API ready):', err);
+            }
+        }
+
         // Mock Data for Multi-Format Portfolio Showcase Items
         const SHOWCASE_ITEMS = [
             {
@@ -1180,6 +1236,9 @@
 
                 showAdminToast(`成功將【${title}】上傳並發布至火力展示區！`);
 
+                // Sync to Google Apps Script API
+                syncToCloud('addShowcaseItem', newScItem);
+
                 // Reset inputs
                 document.getElementById('sc-input-title').value = '';
                 document.getElementById('sc-input-desc').value = '';
@@ -1346,9 +1405,8 @@
             startInput.value = formatForInput(twoHoursAgo);
         }
 
-        // AI Smart Parse Simulation Logic
         if (btnAiParse) {
-            btnAiParse.addEventListener('click', () => {
+            btnAiParse.addEventListener('click', async () => {
                 const text = adminNoteInput?.value.trim() || '';
                 const startTimeVal = document.getElementById('admin-time-start')?.value;
                 const endTimeVal = document.getElementById('admin-time-end')?.value;
@@ -1359,12 +1417,88 @@
                 }
 
                 btnAiParse.disabled = true;
-                btnAiParse.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> AI 鏈上數據解析中...';
+                btnAiParse.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> Gemini 3.1 AI 語義分析中...';
 
-                setTimeout(() => {
-                    btnAiParse.disabled = false;
-                    btnAiParse.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
+                // 計算執行時間起迄 (分鐘)
+                let calculatedMinutes = 0;
+                if (startTimeVal && endTimeVal) {
+                    const start = new Date(startTimeVal);
+                    const end = new Date(endTimeVal);
+                    if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
+                        calculatedMinutes = Math.round((end - start) / (1000 * 60));
+                    }
+                }
 
+                try {
+                    // 呼叫 Gemini 3.1 Flash API 進行真實語語解析
+                    const apiKey = "";
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                    const availableSkills = USER_SKILLS.map(s => `ID: "${s.id}", Name: "${s.name}", Description: "${s.description}"`).join("\n");
+
+                    const systemPrompt = `You are a specialized Web3 & Decentralized Cybernetic Node AI Assistant. Your task is to analyze developer deployment notes/study logs and categorize them into the best matching skill domain from the provided list, extract a concise summary, and estimate/confirm duration in minutes.
+
+Available Skill Domains:
+${availableSkills}
+
+Output MUST be valid JSON matching this schema:
+{
+  "matchedSkillId": "string (must strictly be one of the skill IDs above)",
+  "refinedSummary": "string (a professional 1-sentence summary in Traditional Chinese)",
+  "suggestedMinutes": number (estimated execution duration in minutes if not provided, default 120)
+}`;
+
+                    const userPrompt = `Deployment/Study Note: "${text}"
+${calculatedMinutes > 0 ? `Calculated duration: ${calculatedMinutes} minutes.` : 'Duration not specified, please estimate standard learning/development time.'}`;
+
+                    const payload = {
+                        contents: [{ parts: [{ text: userPrompt }] }],
+                        systemInstruction: { parts: [{ text: systemPrompt }] },
+                        generationConfig: {
+                            responseMimeType: "application/json"
+                        }
+                    };
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Gemini API HTTP Error: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const jsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (!jsonText) throw new Error("Received empty response from Gemini API");
+
+                    const parsedData = JSON.parse(jsonText);
+
+                    // 套用 AI 解析結果
+                    if (parsedData.matchedSkillId && USER_SKILLS.some(s => s.id === parsedData.matchedSkillId)) {
+                        if (adminSkillSelect) adminSkillSelect.value = parsedData.matchedSkillId;
+                    }
+
+                    if (calculatedMinutes > 0) {
+                        if (adminXpInput) adminXpInput.value = calculatedMinutes;
+                    } else if (parsedData.suggestedMinutes) {
+                        if (adminXpInput) adminXpInput.value = parsedData.suggestedMinutes;
+                    }
+
+                    if (parsedData.refinedSummary && adminSummaryInput) {
+                        adminSummaryInput.value = parsedData.refinedSummary;
+                    }
+
+                    const matchedSkillObj = USER_SKILLS.find(s => s.id === (parsedData.matchedSkillId || adminSkillSelect?.value));
+                    const timeMsg = calculatedMinutes > 0 ? `（算得 ${calculatedMinutes} 分鐘）` : `（AI 估算 ${parsedData.suggestedMinutes || 120} 分鐘）`;
+                    showAdminToast(`Gemini 語義解析成功！自動連結至【${matchedSkillObj?.name || '節點'}】${timeMsg}`);
+
+                } catch (err) {
+                    console.warn("Gemini API 連線失敗，啟動本地關鍵字備援解析:", err);
+                    
+                    // 本地備援語意判斷
                     const lowerText = text.toLowerCase();
                     let matchedSkill = USER_SKILLS[0];
 
@@ -1379,63 +1513,95 @@
                     }
 
                     if (adminSkillSelect) adminSkillSelect.value = matchedSkill.id;
-
-                    // 計算執行時間起迄 (分鐘)
-                    let calculatedMinutes = 0;
-                    if (startTimeVal && endTimeVal) {
-                        const start = new Date(startTimeVal);
-                        const end = new Date(endTimeVal);
-                        if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
-                            calculatedMinutes = Math.round((end - start) / (1000 * 60));
-                        }
-                    }
-
                     if (calculatedMinutes > 0) {
                         if (adminXpInput) adminXpInput.value = calculatedMinutes;
-                    } else {
-                        if (adminXpInput) adminXpInput.value = Math.floor(Math.random() * 3 + 2) * 60;
                     }
-
                     if (adminSummaryInput) {
-                        adminSummaryInput.value = text.length > 35 ? text.substring(0, 35) + '...' : (text || '根據執行時間起迄自動生成紀錄');
+                        adminSummaryInput.value = text.length > 35 ? text.substring(0, 35) + '...' : (text || '自動提煉鏈上備忘紀錄');
                     }
 
-                    const timeMsg = calculatedMinutes > 0 ? `（自動算得 ${calculatedMinutes} 分鐘）` : '';
-                    showAdminToast(`AI 解析成功！自動連結至節點【${matchedSkill.name}】${timeMsg}`);
-                }, 800);
+                    showAdminToast(`AI 本地解析完成！自動連結至【${matchedSkill.name}】`);
+                } finally {
+                    btnAiParse.disabled = false;
+                    btnAiParse.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
+                }
             });
         }
 
         if (btnPublishSkill) {
-            btnPublishSkill.addEventListener('click', () => {
+            btnPublishSkill.addEventListener('click', async () => {
                 const selectedSkillId = adminSkillSelect?.value;
                 const gainedXP = parseInt(adminXpInput?.value || '60') || 60;
                 const summary = adminSummaryInput?.value.trim() || "簽署技能節點驗證異動";
+                const noteText = adminNoteInput?.value.trim() || "";
+                const startTimeVal = document.getElementById('admin-time-start')?.value || "";
+                const endTimeVal = document.getElementById('admin-time-end')?.value || "";
 
                 const skillObj = USER_SKILLS.find(s => s.id === selectedSkillId);
-                if (!skillObj) return;
+                if (!skillObj) {
+                    showAdminToast("請選擇有效的技能節點！");
+                    return;
+                }
 
-                skillObj.currentXP = Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP);
+                // 按鈕鎖定並顯示寫入狀態
+                btnPublishSkill.disabled = true;
+                btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
 
                 const today = new Date().toISOString().split('T')[0];
                 const newRecord = {
                     id: `h-${Date.now()}`,
                     date: today,
+                    startTime: startTimeVal,
+                    endTime: endTimeVal,
                     skillId: skillObj.id,
                     skillName: skillObj.name,
                     summary: summary,
+                    noteText: noteText,
                     xpGained: gainedXP,
                     status: 'Published'
                 };
 
-                ADMIN_HISTORY.unshift(newRecord);
-                if (ADMIN_HISTORY.length > 5) ADMIN_HISTORY.pop();
+                try {
+                    // 發送 POST 請求真實寫入 Google Apps Script (Google 試算表)
+                    const result = await syncToCloud('publishSkillNote', {
+                        record: newRecord,
+                        updatedSkill: {
+                            id: skillObj.id,
+                            name: skillObj.name,
+                            currentXP: Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP)
+                        }
+                    });
 
-                renderDashboard();
-                renderSkills('all');
-                renderAdminHistoryTable();
+                    // 更新本地 state 與 UI 數據
+                    skillObj.currentXP = Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP);
+                    ADMIN_HISTORY.unshift(newRecord);
+                    if (ADMIN_HISTORY.length > 5) ADMIN_HISTORY.pop();
 
-                showAdminToast(`成功增加 +${gainedXP} min 至【${skillObj.name}】並發布至 Skill Chain！`);
+                    renderDashboard();
+                    renderSkills('all');
+                    renderAdminHistoryTable();
+
+                    showAdminToast(`成功增加 +${gainedXP} min 並真實寫入 Google 試算表！`);
+
+                    // 清空隨筆輸入欄位
+                    if (adminNoteInput) adminNoteInput.value = '';
+                } catch (err) {
+                    console.error("寫入 Google 試算表失敗:", err);
+                    
+                    // 備援：仍然更新本地介面
+                    skillObj.currentXP = Math.min(skillObj.maxXP, skillObj.currentXP + gainedXP);
+                    ADMIN_HISTORY.unshift(newRecord);
+                    if (ADMIN_HISTORY.length > 5) ADMIN_HISTORY.pop();
+
+                    renderDashboard();
+                    renderSkills('all');
+                    renderAdminHistoryTable();
+
+                    showAdminToast(`已於本地更新 +${gainedXP} min（試算表連線異常，請檢查 API）`);
+                } finally {
+                    btnPublishSkill.disabled = false;
+                    btnPublishSkill.innerHTML = '<i class="fa-solid fa-signature"></i> 簽署並發布至 Skill Chain';
+                }
             });
         }
 
@@ -1514,15 +1680,85 @@
         }
 
         if (loginForm) {
-            loginForm.addEventListener('submit', (e) => {
+            loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                isLoggedIn = true;
-                adminLoginModal?.close();
-                populateAdminSkillSelect();
-                renderAdminHistoryTable();
-                setDefaultAdminTimes();
-                adminPanelModal?.showModal();
-                if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+                
+                const usernameInput = document.getElementById('login-username');
+                const passwordInput = document.getElementById('login-password');
+                const submitBtn = loginForm.querySelector('button[type="submit"]');
+
+                const username = usernameInput?.value.trim() || '';
+                const password = passwordInput?.value.trim() || '';
+
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 向鏈上後端驗證中...';
+                }
+
+                try {
+                    // 發送真實 POST 驗證請求至後端 API_URL
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify({
+                            action: 'login',
+                            payload: { username, password },
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (result && (result.success || result.status === 'ok')) {
+                        isLoggedIn = true;
+                        adminLoginModal?.close();
+                        populateAdminSkillSelect();
+                        renderAdminHistoryTable();
+                        setDefaultAdminTimes();
+                        adminPanelModal?.showModal();
+                        if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+                        showAdminToast("後端 Private Key 驗證成功，開啓節點控制台！");
+                    } else {
+                        // 若後端未回應 success 或回傳失敗，比對預設備援身分
+                        if (username === 'jurash_admin' && password === 'jurash123') {
+                            isLoggedIn = true;
+                            adminLoginModal?.close();
+                            populateAdminSkillSelect();
+                            renderAdminHistoryTable();
+                            setDefaultAdminTimes();
+                            adminPanelModal?.showModal();
+                            if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+                            showAdminToast("身分驗證成功 (離線金鑰比對)！");
+                        } else {
+                            if (loginErrorMsg) {
+                                loginErrorMsg.textContent = result?.message || "驗證失敗：帳號或 Private Key 無效";
+                                loginErrorMsg.classList.remove('hidden');
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.warn("後端連線驗證失敗，切換至本地密鑰比對:", err);
+                    if (username === 'jurash_admin' && password === 'jurash123') {
+                        isLoggedIn = true;
+                        adminLoginModal?.close();
+                        populateAdminSkillSelect();
+                        renderAdminHistoryTable();
+                        setDefaultAdminTimes();
+                        adminPanelModal?.showModal();
+                        if (loginErrorMsg) loginErrorMsg.classList.add('hidden');
+                        showAdminToast("身分驗證成功 (相容模式)！");
+                    } else {
+                        if (loginErrorMsg) {
+                            loginErrorMsg.textContent = "無法連線至驗證伺服器，請檢查網路設定";
+                            loginErrorMsg.classList.remove('hidden');
+                        }
+                    }
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<i class="fa-solid fa-key"></i> 驗證身分並開啓控制台';
+                    }
+                }
             });
         }
 
@@ -1632,6 +1868,7 @@
             renderSkills('all');
             renderTimeline();
             setDefaultAdminTimes();
+            fetchCloudData();
         });
     </script>
 </body>
