@@ -547,7 +547,7 @@
     <!-- Application JavaScript Logic -->
     <script>
         // Google Apps Script Web App Endpoint URL
-        const API_URL = "https://script.google.com/macros/s/AKfycbzUzOHWKibDrxdrk0VwDwS43_hZyOpjJ42UGUW5SjX-kOqWienyYPzQr7q1f74gD1k/exec";
+        const API_URL = "https://script.google.com/macros/s/AKfycbzw0CNwNnnSzOzfRnj02H98Zv8b6pFDS-W5awArRmtpglVoFxWTEIR-xoZLoX7j_3c/exec";
 
         // Global State Variables
         let USER_SKILLS = [];
@@ -1028,7 +1028,7 @@
 
         // Global Event Delegation for Dynamic Buttons
         document.addEventListener('click', async (e) => {
-            // 1. AI Parse Button Handler
+            // 1. AI Parse Button Handler (修復技能選單與經驗值覆蓋問題)
             const targetBtn = e.target.closest('#btn-ai-parse');
             if (targetBtn) {
                 e.preventDefault();
@@ -1037,15 +1037,11 @@
                 const summaryElem = document.getElementById('admin-summary');
                 const xpElem = document.getElementById('admin-xp');
                 const skillSelectElem = document.getElementById('admin-skill-select');
-                const startTimeElem = document.getElementById('admin-time-start');
-                const endTimeElem = document.getElementById('admin-time-end');
 
                 const text = noteElem?.value.trim() || '';
-                const startTimeVal = startTimeElem?.value;
-                const endTimeVal = endTimeElem?.value;
 
-                if (!text && !startTimeVal && !endTimeVal) {
-                    showAdminToast("請填寫鏈上隨筆內容或選擇執行時間起迄！", true);
+                if (!text) {
+                    showAdminToast("請填寫隨筆內容以便 AI 進行深度解析！", true);
                     return;
                 }
 
@@ -1053,19 +1049,6 @@
                 targetBtn.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> AI 數據解析中...';
 
                 try {
-                    let calculatedMinutes = 0;
-                    if (startTimeVal && endTimeVal) {
-                        const start = new Date(startTimeVal);
-                        const end = new Date(endTimeVal);
-                        if (!isNaN(start.getTime()) && !isNaN(end.getTime()) && end > start) {
-                            calculatedMinutes = Math.round((end - start) / (1000 * 60));
-                        }
-                    }
-
-                    if (calculatedMinutes > 0 && xpElem) {
-                        xpElem.value = calculatedMinutes;
-                    }
-
                     let aiSuccess = false;
                     if (typeof API_URL !== 'undefined' && API_URL) {
                         try {
@@ -1076,49 +1059,58 @@
                                     action: 'aiParse',
                                     username: loggedUsername,
                                     password: loggedPassword,
-                                    note: text,
-                                    startTime: startTimeVal,
-                                    endTime: endTimeVal,
-                                    skills: USER_SKILLS || []
+                                    note: text
                                 })
                             });
                             const res = await response.json();
+                            
                             if (res && (res.status === 'success' || res.result === 'success')) {
-                                if (res.summary && summaryElem) summaryElem.value = res.summary;
-                                if (res.minutes && xpElem) xpElem.value = res.minutes;
-                                if (res.skillId && skillSelectElem) skillSelectElem.value = res.skillId;
+                                const aiSkill = res.skillId || (res.data && res.data.skillCategory) || "系統整合";
+                                const aiXp = res.minutes || (res.data && res.data.xp) || 100;
+                                const aiSummary = res.summary || (res.data && res.data.summary) || text;
+
+                                // 填入摘要與 AI 評定的經驗值
+                                if (summaryElem) summaryElem.value = aiSummary;
+                                if (xpElem) xpElem.value = aiXp;
+
+                                // 💡 關鍵修復：動態新增並選中 AI 解析出的技能分類
+                                if (skillSelectElem) {
+                                    let optionExists = false;
+                                    for (let i = 0; i < skillSelectElem.options.length; i++) {
+                                        if (skillSelectElem.options[i].text.includes(aiSkill) || skillSelectElem.options[i].value === aiSkill) {
+                                            skillSelectElem.selectedIndex = i;
+                                            optionExists = true;
+                                            break;
+                                        }
+                                    }
+
+                                    // 若選單內沒有此技能，主動建立新 Option
+                                    if (!optionExists) {
+                                        const newOpt = document.createElement('option');
+                                        newOpt.value = aiSkill;
+                                        newOpt.textContent = aiSkill;
+                                        newOpt.selected = true;
+                                        skillSelectElem.appendChild(newOpt);
+                                    }
+                                }
+
                                 aiSuccess = true;
+                                showAdminToast(`AI 解析成功！已自動建立並連結至【${aiSkill}】(+${aiXp} min)`);
                             }
                         } catch (apiErr) {
-                            console.warn("Apps Script Gemini API 呼叫異常，切換至本地降級解析:", apiErr);
+                            console.warn("Apps Script Gemini API 呼叫異常:", apiErr);
                         }
                     }
 
                     if (!aiSuccess) {
-                        if (text && summaryElem) {
-                            summaryElem.value = text.length > 35 ? text.substring(0, 35) + '...' : text;
-                        }
-
-                        if (skillSelectElem && USER_SKILLS && USER_SKILLS.length > 0) {
-                            const lowerText = text.toLowerCase();
-                            let matched = USER_SKILLS[0];
-                            for (const s of USER_SKILLS) {
-                                const nameLower = (s.name || '').toLowerCase();
-                                if (lowerText.includes(nameLower) || nameLower.includes(lowerText)) {
-                                    matched = s;
-                                    break;
-                                }
-                            }
-                            if (matched) skillSelectElem.value = matched.id || matched.name;
-                        }
+                        if (summaryElem) summaryElem.value = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                        if (xpElem) xpElem.value = 100;
+                        showAdminToast("已由本地帶入摘要數據！");
                     }
-
-                    const timeInfo = calculatedMinutes > 0 ? `（計算共 ${calculatedMinutes} 分鐘）` : '';
-                    showAdminToast(`解析完成！已自動帶入摘要與時間 ${timeInfo}`);
 
                 } catch (err) {
                     console.error("AI 解析處理異常:", err);
-                    showAdminToast("解析完成，已帶入時間與摘要數據");
+                    showAdminToast("解析處理異常，請檢查網路連線", true);
                 } finally {
                     targetBtn.disabled = false;
                     targetBtn.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles"></i> AI 鏈上數據解析';
@@ -1126,7 +1118,7 @@
                 return;
             }
 
-            // 2. Publish Skill Button Handler (Google Sheet Real Write)
+            // 2. Publish Skill Button Handler (修復技能名稱抓取)
             const btnPublishSkill = e.target.closest('#btn-publish-skill');
             if (btnPublishSkill) {
                 e.preventDefault();
@@ -1135,15 +1127,16 @@
                 const xpInput = document.getElementById('admin-xp');
                 const summaryInput = document.getElementById('admin-summary');
                 const noteInput = document.getElementById('admin-note');
-                const startTimeInput = document.getElementById('admin-time-start');
-                const endTimeInput = document.getElementById('admin-time-end');
 
-                const selectedSkill = skillSelect?.value || 'general-dev';
+                // 💡 關鍵修復：優先抓取選單顯示的真實文字，避免抓到 general-dev 變數名稱
+                let selectedSkillName = "系統整合";
+                if (skillSelect && skillSelect.selectedIndex >= 0) {
+                    selectedSkillName = skillSelect.options[skillSelect.selectedIndex].text.replace(/\s*\(Lv\.\d+\)/, '').trim();
+                }
+
                 const xpGained = parseInt(xpInput?.value || '60') || 60;
                 const summary = summaryInput?.value.trim() || '簽署技能節點異動';
                 const note = noteInput?.value.trim() || '';
-                const startTime = startTimeInput?.value || '';
-                const endTime = endTimeInput?.value || '';
 
                 btnPublishSkill.disabled = true;
                 btnPublishSkill.innerHTML = '<i class="fa-solid fa-spinner animate-spin"></i> 正在寫入 Google 試算表...';
@@ -1156,13 +1149,10 @@
                             action: 'publishSkill',
                             username: loggedUsername,
                             password: loggedPassword,
-                            skillId: selectedSkill,
-                            skill: selectedSkill,
+                            skill: selectedSkillName,
                             xp: xpGained,
                             summary: summary,
                             note: note,
-                            startTime: startTime,
-                            endTime: endTime,
                             date: new Date().toISOString().slice(0, 10)
                         })
                     });
@@ -1170,23 +1160,17 @@
                     const res = await response.json();
 
                     if (res && (res.status === 'success' || res.result === 'success')) {
-                        showAdminToast(`已成功寫入試算表！+${xpGained} min 至技能樹`);
+                        showAdminToast(`已成功寫入試算表！【${selectedSkillName}】+${xpGained} min`);
                         if (noteInput) noteInput.value = '';
 
-                        // Update local skill cache
-                        const targetSkill = USER_SKILLS.find(s => (s.id === selectedSkill || s.name === selectedSkill));
-                        if (targetSkill) {
-                            targetSkill.currentXP = (targetSkill.currentXP || 0) + xpGained;
-                        }
-
-                        // Re-fetch data from cloud to reflect spreadsheet changes
+                        // 重新從雲端載入試算表，自動更新前台技能進度條
                         fetchCloudData();
                     } else {
-                        showAdminToast(`寫入失敗：${res.message || '後端驗證或權限錯誤'}`, true);
+                        showAdminToast(`寫入失敗：${res.message || '後端驗證錯誤'}`, true);
                     }
                 } catch (err) {
                     console.error("發布至 Google 試算表失敗:", err);
-                    showAdminToast("發布失敗，請確認 Apps Script API 設定與網路連線", true);
+                    showAdminToast("發布失敗，請確認 API 連線", true);
                 } finally {
                     btnPublishSkill.disabled = false;
                     btnPublishSkill.innerHTML = '<i class="fa-solid fa-file-signature"></i> 簽署並發布至 Skill Chain (試算表)';
